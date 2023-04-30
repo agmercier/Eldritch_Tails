@@ -15,12 +15,12 @@ public class DialogueTrigger : MonoBehaviour
 
     private void Update()
     {
-        //if (!DialogueManager.GetInstance().dialogueIsPlaying)
-        //{
-            if (InputManager.GetInstance().GetInteractPressed())
+        if (!DialogueManager.Getinstance().dialogueIsPlaying)
+        {
+            if (Input.GetButtonDown("Interact"))
             {
-                //DialogueManager.GetInstance().EnterDialogueMode(inkJSON, emoteAnimator);
+                DialogueManager.Getinstance().EnterDialogueMode(inkJSON);
             }
-        //}
+        }
     }
 }
