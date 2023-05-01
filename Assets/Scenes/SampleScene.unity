@@ -715,6 +715,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 819711603}
+  - component: {fileID: 819711604}
+  - component: {fileID: 819711605}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -737,6 +739,49 @@ Transform:
   m_Father: {fileID: 1143987213}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &819711604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819711602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22fe0e6932340c84cbea955f616c9544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalsInkFile:
+    compileAutomatically: 0
+    inkAsset: {fileID: 102900000, guid: 5c441c07a6a26cf4e87339c1fed615e9, type: 3}
+    jsonAssetDirectory: {fileID: 0}
+    jsonAsset: {fileID: 0}
+    unhandledCompileErrors: []
+    errors: []
+    warnings: []
+    todos: []
+    parents: []
+    masterInkAssets: []
+    masterInkAsset: {fileID: 0}
+    includePaths: []
+    includes: []
+  dialogueBox: {fileID: 572775954}
+  dialogueText: {fileID: 1442859446}
+  choices: []
+  dialogueIsPlaying: 0
+--- !u!114 &819711605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819711602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b986662b134d24e9809699a7c1a49b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkJSON: {fileID: 4900000, guid: 3159b6dd0d13be845a6bc8f5d5166be1, type: 3}
 --- !u!1 &925423459
 GameObject:
   m_ObjectHideFlags: 0
