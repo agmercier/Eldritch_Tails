@@ -79,7 +79,7 @@ public class GameScreen : MonoBehaviour
 
     private void SetSubtitles()
     {
-        subtitles.SetText(_screen.subtitlesText);
+       // subtitles.SetText(_screen.subtitlesText);
     }
 
     private void SetOptions()
