@@ -1,4 +1,5 @@
--> main
+INCLUDE Globals.ink
+{ barrier == "" : -> main | -> already_chosen }
 
 === main ===
 Which choice?
@@ -9,6 +10,15 @@ Which choice?
     + [Live]
         -> chosen("live")
 
-=== chosen(pokemon) ===
-You chose {pokemon}!
+=== chosen(name) ===
+~ barrier = name
+
+
+You chose {name}!
+~ exFunc("itWorks")
+-> END
+=== already_chosen ===
+
+you already chose {barrier}!
+
 -> END

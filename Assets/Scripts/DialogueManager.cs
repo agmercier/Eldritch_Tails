@@ -4,9 +4,13 @@ using UnityEngine;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
+    [Header("Global Ink File")]
+    [SerializeField] private InkFile globalsInkFile;
+
     private static DialogueManager instance;
 
     [Header("Dialogue UI")]
@@ -22,6 +26,9 @@ public class DialogueManager : MonoBehaviour
 
     public bool dialogueIsPlaying;
 
+    private DialogueVariables dialogueVariables;
+    private InkExternalFunctions inkExternalFunctions;
+
     private void Awake()
     {
         if (instance != null)
@@ -29,6 +36,9 @@ public class DialogueManager : MonoBehaviour
             Debug.LogWarning("More than one instance of Dialogue Manager");
         }
         instance = this;
+
+        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
+        inkExternalFunctions = new InkExternalFunctions();
     }
 
     public static DialogueManager Getinstance()
@@ -56,6 +66,10 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialogueBox.SetActive(true);
 
+        dialogueVariables.StartListening(currentStory);
+
+        inkExternalFunctions.Bind(currentStory);
+
         ContinueStory();
     }
 
@@ -71,23 +85,39 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void ExitDialogueMode()
+    private IEnumerator ExitDialogueMode()
     {
+        yield return new WaitForSeconds(0.2f);
+
+        dialogueVariables.StopListening(currentStory);
+
+        inkExternalFunctions.Unbind(currentStory);
+
         dialogueIsPlaying = false;
         dialogueBox.SetActive(false);
         dialogueText.text = "";
+
+
     }
 
     private void ContinueStory()
     {
         if (currentStory.canContinue)
         {
-            dialogueText.text = currentStory.Continue();
-            DisplayChoices();
+             string nextLine = currentStory.Continue();
+            if(nextLine.Equals("")  && !currentStory.canContinue)
+            {
+                StartCoroutine(ExitDialogueMode());
+            }
+            else
+            {
+                dialogueText.text = nextLine;
+                DisplayChoices();
+            }
         }
         else
         {
-            ExitDialogueMode();
+            StartCoroutine(ExitDialogueMode());
         }
     }
 
@@ -125,5 +155,17 @@ public class DialogueManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
+    }
+
+    //use to access variables from unity
+    public Ink.Runtime.Object GetVariableState(string variableName)
+    {
+        Ink.Runtime.Object variableValue = null;
+        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+        if(variableValue == null)
+        {
+            Debug.LogWarning("Ink variable not found: " + variableName);
+        }
+        return variableValue;
     }
 }
