@@ -5,6 +5,8 @@ VAR player_name = "Georgi"
 // Start the story
 === START ===
 Welcome to the story! What is your name? #background:forest #left:twitty #right:spongebob
+
+Enter your name boy
 * [Enter your name.] -> SET_NAME
 
 === SET_NAME ===

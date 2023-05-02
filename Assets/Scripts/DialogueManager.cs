@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using Ink.Runtime;
@@ -78,7 +79,16 @@ public class DialogueManager : MonoBehaviour
         {
             BackgroundSprite = backgroundSprite,
             SubtitlesText = _currentStory.currentText,
-            Options = _currentStory.currentChoices.Select((choice, index) => new Option
+            Options = _currentStory.currentChoices.Count == 0 ?
+                _currentStory.canContinue ?
+                    new Option[]{ new()
+                        {
+                            Text = "Continue",
+                            Select = ContinueStory
+                        }
+                    }:
+                    Array.Empty<Option>():   
+                _currentStory.currentChoices.Select((choice, index) => new Option
                 {
                     Text = choice.text,
                     Select = delegate { MakeChoice(index); }
