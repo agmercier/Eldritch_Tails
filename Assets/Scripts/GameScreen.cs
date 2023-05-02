@@ -23,11 +23,12 @@ public class GameScreen : MonoBehaviour
     {
         if (_screen.BackgroundSprite != null)
         {
+            characterLeft.enabled = true;
             background.sprite = _screen.BackgroundSprite;
         }
         else
         {
-            background.gameObject.SetActive(false);
+            characterLeft.enabled = false;
         }
     }
     
