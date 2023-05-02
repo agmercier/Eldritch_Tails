@@ -1,39 +1,29 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameScreen : MonoBehaviour
 {
-    [Header("Screen Details")]
-    public ScreenDetails initialScreen;
-    private ScreenDetails _screen;
-
     [Header("References")]
-    public Image background;
+    [SerializeField] private Image background;
     [Space(10)]
-    public TMP_Text subtitles;
+    [SerializeField] private TMP_Text subtitles;
     [Space(10)]
-    public GameObject optionsParent;
-    public Button optionPrefab;
+    [SerializeField] private GameObject optionsParent;
+    [SerializeField] private Button optionPrefab;
     [Space(10)]
-    public Image characterLeft;
-    public Image characterCenter;
-    public Image characterRight;
+    [SerializeField] private Image characterLeft;
+    [SerializeField] private Image characterCenter;
+    [SerializeField] private Image characterRight;
     
-    private void Start()
-    {
-        SetScreen(initialScreen);
-    }
+    private ScreenDetails _screen;
 
     private void SetBackground()
     {
-        if (_screen.backgroundSprite != null)
+        if (_screen.BackgroundSprite != null)
         {
-            background.sprite = _screen.backgroundSprite;
+            background.sprite = _screen.BackgroundSprite;
         }
         else
         {
@@ -44,10 +34,10 @@ public class GameScreen : MonoBehaviour
     private void SetCharacters()
     {
         // Left
-        if (_screen.characterLeftSprite != null)
+        if (_screen.CharacterLeftSprite != null)
         {
             characterLeft.enabled = true;
-            characterLeft.sprite = _screen.characterLeftSprite;
+            characterLeft.sprite = _screen.CharacterLeftSprite;
         }
         else
         {
@@ -55,10 +45,10 @@ public class GameScreen : MonoBehaviour
         }
         
         // Center
-        if (_screen.characterCenterSprite != null)
+        if (_screen.CharacterCenterSprite != null)
         {
             characterCenter.enabled = true;
-            characterCenter.sprite = _screen.characterCenterSprite;
+            characterCenter.sprite = _screen.CharacterCenterSprite;
         }
         else
         {
@@ -66,10 +56,10 @@ public class GameScreen : MonoBehaviour
         }
         
         // Right
-        if (_screen.characterRightSprite != null)
+        if (_screen.CharacterRightSprite != null)
         {
             characterRight.enabled = true;
-            characterRight.sprite = _screen.characterRightSprite;
+            characterRight.sprite = _screen.CharacterRightSprite;
         }
         else
         {
@@ -79,7 +69,7 @@ public class GameScreen : MonoBehaviour
 
     private void SetSubtitles()
     {
-       // subtitles.SetText(_screen.subtitlesText);
+       subtitles.SetText(_screen.SubtitlesText);
     }
 
     private void SetOptions()
@@ -89,18 +79,15 @@ public class GameScreen : MonoBehaviour
             Destroy(optionsParent.transform.GetChild(i).gameObject);
         }
         
-        foreach (var option in _screen.options)
+        foreach (var option in _screen.Options)
         {
             var optionObject = Instantiate(optionPrefab, optionsParent.transform);
-            optionObject.GetComponentInChildren<TMP_Text>().SetText(option.text);
-            optionObject.GetComponentInChildren<Button>().onClick.AddListener(delegate
-            {
-                SetScreen(option.nextScreen);
-            }); 
+            optionObject.GetComponentInChildren<TMP_Text>().SetText(option.Text);
+            optionObject.GetComponentInChildren<Button>().onClick.AddListener(option.Select); 
         }
     }
 
-    private void SetScreen(ScreenDetails nextScreen)
+    public void SetScreen(ScreenDetails nextScreen)
     {
         _screen = nextScreen;
         
@@ -111,9 +98,21 @@ public class GameScreen : MonoBehaviour
     }
 }
 
-[Serializable]
+public struct ScreenDetails
+{
+    public Sprite BackgroundSprite;
+
+    public string SubtitlesText;
+
+    public Option[] Options;
+
+    public Sprite CharacterLeftSprite;
+    public Sprite CharacterCenterSprite;
+    public Sprite CharacterRightSprite;
+}
+
 public struct Option
 {
-    public string text;
-    public ScreenDetails nextScreen;
+    public string Text;
+    public UnityAction Select;
 }

@@ -1,171 +1,112 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using TMPro;
 using Ink.Runtime;
-using UnityEngine.EventSystems;
-using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
-    [Header("Global Ink File")]
-    [SerializeField] private InkFile globalsInkFile;
+    private static DialogueManager _instance;
 
-    private static DialogueManager instance;
+    [Header("Ink")]
+    [SerializeField] private TextAsset inkFile;
 
-    [Header("Dialogue UI")]
-    [SerializeField] private GameObject dialogueBox;
-    [SerializeField] private TextMeshProUGUI dialogueText;
+    [Header("UI")]
+    [SerializeField] private GameScreen gameScreen;
 
-    [Header("Choices UI")]
-    [SerializeField] private GameObject[] choices;
+    [Header("Resources")]
+    [SerializeField] private Sprite[] sprites;
 
-    TextMeshProUGUI[] choicesText;
+    private Story _currentStory;
 
-    private Story currentStory;
-
-    public bool dialogueIsPlaying;
-
-    private DialogueVariables dialogueVariables;
-    private InkExternalFunctions inkExternalFunctions;
+    private const string Background = "background";
+    private const string CharacterLeft = "left";
+    private const string CharacterCenter = "center";
+    private const string CharacterRight = "right";
+    
+    public static DialogueManager GetInstance()
+    {
+        return _instance;
+    }
 
     private void Awake()
     {
-        if (instance != null)
+        if (_instance != null)
         {
             Debug.LogWarning("More than one instance of Dialogue Manager");
         }
-        instance = this;
-
-        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
-        inkExternalFunctions = new InkExternalFunctions();
+        _instance = this;
     }
-
-    public static DialogueManager Getinstance()
-    {
-        return instance;
-    }
-
+    
     private void Start()
     {
-        dialogueIsPlaying = false;
-        dialogueBox.SetActive(false);
-
-        choicesText = new TextMeshProUGUI[choices.Length];
-        int index = 0;
-        foreach(GameObject choice in choices)
-        {
-            choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
-            index++;
-        }
-    }
-
-    public void EnterDialogueMode(TextAsset inkJSON)
-    {
-        currentStory = new Story(inkJSON.text);
-        dialogueIsPlaying = true;
-        dialogueBox.SetActive(true);
-
-        dialogueVariables.StartListening(currentStory);
-
-        inkExternalFunctions.Bind(currentStory);
-
+        _currentStory = new Story(inkFile.text);
+        
         ContinueStory();
-    }
-
-    private void Update()
-    {
-        if (!dialogueIsPlaying)
-        {
-            return;
-        }
-        else if(Input.GetButtonDown("Submit"))
-        {
-            ContinueStory();
-        }
-    }
-
-    private IEnumerator ExitDialogueMode()
-    {
-        yield return new WaitForSeconds(0.2f);
-
-        dialogueVariables.StopListening(currentStory);
-
-        inkExternalFunctions.Unbind(currentStory);
-
-        dialogueIsPlaying = false;
-        dialogueBox.SetActive(false);
-        dialogueText.text = "";
-
-
     }
 
     private void ContinueStory()
     {
-        if (currentStory.canContinue)
+        if (!_currentStory.canContinue) return;
+        
+        _currentStory.Continue();
+
+        Sprite backgroundSprite = null;
+        Sprite characterLeftSprite = null;
+        Sprite characterCenterSprite = null;
+        Sprite characterRightSprite = null;
+
+        foreach (var splitTag in _currentStory.currentTags.Select(inkTag => inkTag.Split(":")))
         {
-             string nextLine = currentStory.Continue();
-            if(nextLine.Equals("")  && !currentStory.canContinue)
+            switch (splitTag[0])
             {
-                StartCoroutine(ExitDialogueMode());
-            }
-            else
-            {
-                dialogueText.text = nextLine;
-                DisplayChoices();
+                case Background:
+                    backgroundSprite = LoadSprite(splitTag[1]);
+                    break;
+                case CharacterLeft:
+                    characterLeftSprite = LoadSprite(splitTag[1]);
+                    break;
+                case CharacterCenter:
+                    characterCenterSprite = LoadSprite(splitTag[1]);
+                    break;
+                case CharacterRight:
+                    characterRightSprite = LoadSprite(splitTag[1]);
+                    break;
             }
         }
-        else
+
+        // Update UI
+        gameScreen.SetScreen(new ScreenDetails
         {
-            StartCoroutine(ExitDialogueMode());
-        }
+            BackgroundSprite = backgroundSprite,
+            SubtitlesText = _currentStory.currentText,
+            Options = _currentStory.currentChoices.Select((choice, index) => new Option
+                {
+                    Text = choice.text,
+                    Select = delegate { MakeChoice(index); }
+                }
+            ).ToArray(),
+            CharacterLeftSprite = characterLeftSprite,
+            CharacterCenterSprite = characterCenterSprite,
+            CharacterRightSprite = characterRightSprite
+        });
     }
 
-    public void DisplayChoices()
+    private Sprite LoadSprite(string spriteName)
     {
-        List<Choice> currentChoices = currentStory.currentChoices;
-
-        if (currentChoices.Count > choices.Length)
+        foreach (var sprite in sprites)
         {
-            Debug.LogError("More choices than UI supports");
+            if (sprite.name == spriteName)
+            {
+                return sprite;
+            }
         }
 
-        int index = 0;
-        foreach(Choice choice in currentChoices)
-        {
-            choices[index].gameObject.SetActive(true);
-            choicesText[index].text = choice.text;
-            index++;
-        }
-        for (int i = index; i < choices.Length; i++)
-        {
-            choices[i].SetActive(false);
-        }
-
-        StartCoroutine(SelectFirstChoice());
-    }
-
-    private IEnumerator SelectFirstChoice()
-    {
-        EventSystem.current.SetSelectedGameObject(null);
-        yield return new WaitForEndOfFrame();
-        EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
+        Debug.LogError("Cannot find asset with name: " + spriteName);
+        return null;
     }
 
     public void MakeChoice(int choiceIndex)
     {
-        currentStory.ChooseChoiceIndex(choiceIndex);
-    }
-
-    //use to access variables from unity
-    public Ink.Runtime.Object GetVariableState(string variableName)
-    {
-        Ink.Runtime.Object variableValue = null;
-        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
-        if(variableValue == null)
-        {
-            Debug.LogWarning("Ink variable not found: " + variableName);
-        }
-        return variableValue;
+        _currentStory.ChooseChoiceIndex(choiceIndex);
+        ContinueStory();
     }
 }
