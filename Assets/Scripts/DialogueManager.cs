@@ -40,6 +40,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         _currentStory = new Story(inkFile.text);
+        Debug.Log(PlayerPrefs.GetString("name"));
         
         ContinueStory();
     }
