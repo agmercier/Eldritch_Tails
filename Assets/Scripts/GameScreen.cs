@@ -83,8 +83,17 @@ public class GameScreen : MonoBehaviour
         foreach (var option in _screen.Options)
         {
             var optionObject = Instantiate(optionPrefab, optionsParent.transform);
-            optionObject.GetComponentInChildren<TMP_Text>().SetText(option.Text);
-            optionObject.GetComponentInChildren<Button>().onClick.AddListener(option.Select); 
+            var text = optionObject.GetComponentInChildren<TMP_Text>();
+            text.SetText(option.Text);
+            var button = optionObject.GetComponentInChildren<Button>();
+            button.onClick.AddListener(option.Select);
+            
+            if (option.Text == "Continue")
+            {
+                text.color = Color.white;
+                ColorUtility.TryParseHtmlString("#9850E799", out var color);
+                optionObject.GetComponentInParent<Image>().color = color;
+            }
         }
     }
 
