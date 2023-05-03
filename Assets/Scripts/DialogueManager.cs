@@ -68,16 +68,16 @@ public class DialogueManager : MonoBehaviour
             switch (splitTag[0])
             {
                 case Background:
-                    backgroundSprite = LoadSprite(splitTag[1]);
+                    backgroundSprite = LoadSprite(splitTag[1].Trim());
                     break;
                 case CharacterLeft:
-                    characterLeftSprite = LoadSprite(splitTag[1]);
+                    characterLeftSprite = LoadSprite(splitTag[1].Trim());
                     break;
                 case CharacterCenter:
-                    characterCenterSprite = LoadSprite(splitTag[1]);
+                    characterCenterSprite = LoadSprite(splitTag[1].Trim());
                     break;
                 case CharacterRight:
-                    characterRightSprite = LoadSprite(splitTag[1]);
+                    characterRightSprite = LoadSprite(splitTag[1].Trim());
                     break;
             }
         }

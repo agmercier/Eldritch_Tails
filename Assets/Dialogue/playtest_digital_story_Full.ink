@@ -1,13 +1,9 @@
 VAR barrier = "on"
-
-first line
-{barrier == "on": BEGIN}
-{barrier == "off": END}
 ->start1
 
 ===start1===
-West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever cut and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background: woods
-The water splashes up and leaves black stains on his skin and clothes as NPC's running footsteps disturb it. Even though the stream is only small, the resistance is powerful. The water is pulling him down, slowing him down and seems to whisper "don't leave, don't leave..." #background: woods
+West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever cut and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:woods
+The water splashes up and leaves black stains on his skin and clothes as NPC's running footsteps disturb it. Even though the stream is only small, the resistance is powerful. The water is pulling him down, slowing him down and seems to whisper "don't leave, don't leave..." #background:woods
 NPC wriggles himself from its grip and continues running. He has to get out! Navigating through the dark trees becomes harder and harder, as the forest gets more dense and the branches seem to be closing in on him, gripping onto his clothes and hair and making him trip. They hook into his skin and lock him in a horrible embrace he can't escape from. He screams, but the only audible sound is the ever present wind rustling through the leaves, as if the forest is laughing at him. #background: woods #left: NPC (temporary)
 + [Continue] -> introfamily
 
@@ -213,10 +209,13 @@ NPC: "I CAN'T GO FURTHER THAN THIS" #background: woods #left: NPC (temporary)
 + [NPC]-> CommentUS
 
 = CommentUS
-... We're really stubborn aren't we. Well no matter. Going further in would never work anyway. There is nothing else out there. If we really want to see, just change the rules of the game. Take away the barrier. Delete it. We know we can. #background: woods
+... We're really stubborn aren't we. Well no matter. Going further in would never work anyway. There is nothing else out there. If we really want to see, just change the rules of the game. Set the barrier to  "off".  We know we can. #background: woods
++ [Continue when It is done]-> BarrierOption
+
+= BarrierOption
+...Make your choice
 + [go home]-> Home
-// brrier need to be down
-+ {barrier == "off"} [GO. DEEPER. INTO. THE. WOODS.]-> GetHerbs
++ {barrier == "off" || barrier == "Off" || barrier == "of"|| barrier == ""|| barrier == "delete" || barrier == "Delete"} [GO. DEEPER. INTO. THE. WOODS.]-> GetHerbs
 
 ===GetHerbs===
 ...Very well then. #background: woods #left: NPC (temporary)
@@ -254,7 +253,7 @@ Daughter: "I am afraid I am not well enough to travell, father" #background: ins
 Realizing that something was very wrong, not only with the town but also his own family. NPC turned heel and ran into the forest. He was going to get out of here! No matter what. #background: inside #left: NPC (temporary) 
 + [Continue] -> ForestStay
 //barrier need to be down
-+ {barrier  == "off"} [Continue] -> ForestLeave
++ {barrier == "off" || barrier == "Off" || barrier == "of"|| barrier == ""|| barrier == "delete" || barrier == "Delete"} [Continue] -> ForestLeave
 
 ===ForestStay===
 He ran on deeper and deeper into the forest. The trees grew more dense, blocking out more of the sunlight and it seemed to grow darker with every step. He still pushed on. Just about as he was to cross the treshold of the part of the forest that he knew, he realized that he was running, but he was not moving. Panicked he pushed even harder, even further, but no matter what he stayed in the same place. #background: woods #left: NPC (temporary) 
