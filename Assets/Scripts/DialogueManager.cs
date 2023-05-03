@@ -2,6 +2,9 @@ using System;
 using System.Linq;
 using UnityEngine;
 using Ink.Runtime;
+using UnityEngine.UI;
+using System.IO;
+using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,6 +20,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Sprite[] sprites;
 
     private Story _currentStory;
+
+    private GameObject barrierTextFile;
 
     private const string Background = "background";
     private const string CharacterLeft = "left";
@@ -47,6 +52,8 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory()
     {
+        ChangeBarrier();
+
         if (!_currentStory.canContinue) return;
         
         _currentStory.Continue();
@@ -119,5 +126,18 @@ public class DialogueManager : MonoBehaviour
     {
         _currentStory.ChooseChoiceIndex(choiceIndex);
         ContinueStory();
+    }
+
+    private void ChangeBarrier()
+    {
+        string path = Application.streamingAssetsPath + "/Barrier/" + "Barrier_Controler" + ".txt";
+        List<string> fileLines = File.ReadAllLines(path).ToList();
+
+        foreach (string  line in fileLines)
+        {
+            string variableName = "barrier";
+            object variableValue = line;
+            _currentStory.variablesState[variableName] = variableValue;
+        }
     }
 }

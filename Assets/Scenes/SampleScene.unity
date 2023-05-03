@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fe0e6932340c84cbea955f616c9544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFile: {fileID: 4900000, guid: 3159b6dd0d13be845a6bc8f5d5166be1, type: 3}
+  inkFile: {fileID: 4900000, guid: 3cd18670c6b174247a0a4d077ee33afd, type: 3}
   gameScreen: {fileID: 1571753815}
   sprites:
   - {fileID: 21300000, guid: 3f9865a97bd86db458be19c89473b57c, type: 3}

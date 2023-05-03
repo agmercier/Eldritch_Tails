@@ -1,3 +1,3 @@
-VAR barrier = ""
+VAR barrier = "on"
 
 EXTERNAL exFunc(mName)

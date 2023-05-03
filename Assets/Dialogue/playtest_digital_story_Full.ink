@@ -1,4 +1,8 @@
-BEGIN
+VAR barrier = "on"
+
+first line
+{barrier == "on": BEGIN}
+{barrier == "off": END}
 ->start1
 
 ===start1===
@@ -212,7 +216,7 @@ NPC: "I CAN'T GO FURTHER THAN THIS"
 ... We're really stubborn aren't we. Well no matter. Going further in would never work anyway. There is nothing else out there. If we really want to see, just change the rules of the game. Take away the barrier. Delete it. We know we can.
 + [go home]-> Home
 // brrier need to be down
-+ [GO. DEEPER. INTO. THE. WOODS.]-> GetHerbs
++ {barrier == "off"} [GO. DEEPER. INTO. THE. WOODS.]-> GetHerbs
 
 ===GetHerbs===
 ...Very well then.
@@ -250,7 +254,7 @@ Daughter: "I am afraid I am not well enough to travell, father"
 Realizing that something was very wrong, not only with the town but also his own family. NPC turned heel and ran into the forest. He was going to get out of here! No matter what.
 + [Continue] -> ForestStay
 //barrier need to be down
-+ [Continue] -> ForestLeave
++ {barrier  == "off"} [Continue] -> ForestLeave
 
 ===ForestStay===
 He ran on deeper and deeper into the forest. The trees grew more dense, blocking out more of the sunlight and it seemed to grow darker with every step. He still pushed on. Just about as he was to cross the treshold of the part of the forest that he knew, he realized that he was running, but he was not moving. Panicked he pushed even harder, even further, but no matter what he stayed in the same place. 
