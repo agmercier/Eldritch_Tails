@@ -2,6 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
+
+
+
 
 public class GameScreen : MonoBehaviour
 {
@@ -16,6 +21,9 @@ public class GameScreen : MonoBehaviour
     [SerializeField] private Image characterLeft;
     [SerializeField] private Image characterCenter;
     [SerializeField] private Image characterRight;
+
+    [Header("Parameters")]
+    [SerializeField] private float typingSpeed = 0.04f;
     
     private ScreenDetails _screen;
 
@@ -68,9 +76,15 @@ public class GameScreen : MonoBehaviour
         }
     }
 
-    private void SetSubtitles()
+    private IEnumerator SetSubtitles()
     {
-       subtitles.SetText(_screen.SubtitlesText);
+        //subtitles.SetText(_screen.SubtitlesText);
+        subtitles.SetText("");
+        foreach (char letter in _screen.SubtitlesText.ToCharArray())
+        {
+            subtitles.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+        }
     }
 
     private void SetOptions()
@@ -93,7 +107,7 @@ public class GameScreen : MonoBehaviour
         _screen = nextScreen;
         
         SetBackground();
-        SetSubtitles();
+        StartCoroutine(SetSubtitles());
         SetOptions();
         SetCharacters();
     }
