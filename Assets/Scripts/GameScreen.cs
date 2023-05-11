@@ -96,6 +96,8 @@ public class GameScreen : MonoBehaviour
         keyPressed = false;
         HideOptions();
 
+
+        bool isAddingRichTextTag = false;
         foreach (char letter in _screen.SubtitlesText.ToCharArray())
         {
             if (keyPressed)
@@ -104,8 +106,23 @@ public class GameScreen : MonoBehaviour
                 break;
             }
 
-            subtitles.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+            //parse for text tags (ex:color, bold, italic, etc...)
+            if (letter == '<' || isAddingRichTextTag)
+            {
+                isAddingRichTextTag = true;
+                subtitles.text += letter;
+                if(letter == '>')
+                {
+                    isAddingRichTextTag = false;
+                }
+            }
+            else  //not a tag so display normaly
+            {
+                subtitles.text += letter;
+                yield return new WaitForSeconds(typingSpeed);
+            }
+
+            
         }
         canContinueToNextLine = true;
         SetOptions();

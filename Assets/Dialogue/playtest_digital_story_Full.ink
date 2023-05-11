@@ -2,7 +2,7 @@ VAR barrier = "on"
 ->start1
 
 ===start1===
-West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever cut and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:woods
+West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever <color=\#FF0000>cut</color> and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:woods
 The water splashes up and leaves black stains on his skin and clothes as NPC's running footsteps disturb it. Even though the stream is only small, the resistance is powerful. The water is pulling him down, slowing him down and seems to whisper "don't leave, don't leave..." #background:woods
 NPC wriggles himself from its grip and continues running. He has to get out! Navigating through the dark trees becomes harder and harder, as the forest gets more dense and the branches seem to be closing in on him, gripping onto his clothes and hair and making him trip. They hook into his skin and lock him in a horrible embrace he can't escape from. He screams, but the only audible sound is the ever present wind rustling through the leaves, as if the forest is laughing at him. #background: woods #left: NPC (temporary)
 + [Continue] -> introfamily
