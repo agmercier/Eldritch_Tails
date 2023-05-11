@@ -24,8 +24,20 @@ public class GameScreen : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] private float typingSpeed = 0.04f;
+
+    private Coroutine displayLineCoroutine;
+    public bool canContinueToNextLine = false;
+    private bool keyPressed = false;
     
     private ScreenDetails _screen;
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Interact") || Input.GetButtonDown("Submit") || Input.GetButtonDown("Click"))
+        {
+            keyPressed = true;
+        }
+    }
 
     private void SetBackground()
     {
@@ -80,13 +92,31 @@ public class GameScreen : MonoBehaviour
     {
         //subtitles.SetText(_screen.SubtitlesText);
         subtitles.SetText("");
+        canContinueToNextLine = false;
+        keyPressed = false;
+        HideOptions();
+
         foreach (char letter in _screen.SubtitlesText.ToCharArray())
         {
+            if (keyPressed)
+            {
+                subtitles.SetText(_screen.SubtitlesText);            
+                break;
+            }
+
             subtitles.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
+        canContinueToNextLine = true;
+        SetOptions();
     }
-
+    private void HideOptions()
+    {
+        for (var i = optionsParent.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(optionsParent.transform.GetChild(i).gameObject);
+        }
+    }
     private void SetOptions()
     {
         for (var i = optionsParent.transform.childCount - 1; i >= 0; i--)
@@ -99,6 +129,7 @@ public class GameScreen : MonoBehaviour
             var optionObject = Instantiate(optionPrefab, optionsParent.transform);
             optionObject.GetComponentInChildren<TMP_Text>().SetText(option.Text);
             optionObject.GetComponentInChildren<Button>().onClick.AddListener(option.Select); 
+            
         }
     }
 
@@ -107,8 +138,12 @@ public class GameScreen : MonoBehaviour
         _screen = nextScreen;
         
         SetBackground();
-        StartCoroutine(SetSubtitles());
-        SetOptions();
+
+        if(displayLineCoroutine !=  null)
+        {
+            StopCoroutine(displayLineCoroutine);
+        }
+        displayLineCoroutine = StartCoroutine(SetSubtitles());
         SetCharacters();
     }
 }
