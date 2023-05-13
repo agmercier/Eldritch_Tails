@@ -25,11 +25,29 @@ public class GameScreen : MonoBehaviour
     [Header("Parameters")]
     [SerializeField] private float typingSpeed = 0.04f;
 
+    //display letter by letter variables
     private Coroutine displayLineCoroutine;
     public bool canContinueToNextLine = false;
     private bool keyPressed = false;
+    //taking sound variables
+    [Header("Audio")]
+    [SerializeField] private AudioClip[] dialogueTypingSoundClips;
+    [SerializeField] private bool stopAudioSource;
+    [Range(1,5)]
+    [SerializeField] private int frequencyLevel = 2;
+    [Range(-3, 3)]
+    [SerializeField] private float maxPitch = 3.0f;
+    [Range(-3, 3)]
+    [SerializeField] private float minPitch = 0.5f;
+    
+    private AudioSource audioSource;
     
     private ScreenDetails _screen;
+
+    private void Awake()
+    {
+        audioSource = this.gameObject.AddComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -90,8 +108,8 @@ public class GameScreen : MonoBehaviour
 
     private IEnumerator SetSubtitles()
     {
-        //subtitles.SetText(_screen.SubtitlesText);
-        subtitles.SetText("");
+        subtitles.SetText(_screen.SubtitlesText);
+        subtitles.maxVisibleCharacters = 0;
         canContinueToNextLine = false;
         keyPressed = false;
         HideOptions();
@@ -102,7 +120,7 @@ public class GameScreen : MonoBehaviour
         {
             if (keyPressed)
             {
-                subtitles.SetText(_screen.SubtitlesText);            
+                subtitles.maxVisibleCharacters = _screen.SubtitlesText.Length;           
                 break;
             }
 
@@ -118,7 +136,8 @@ public class GameScreen : MonoBehaviour
             }
             else  //not a tag so display normaly
             {
-                subtitles.text += letter;
+                PlayDialogueSound(subtitles.maxVisibleCharacters);
+                subtitles.maxVisibleCharacters++;
                 yield return new WaitForSeconds(typingSpeed);
             }
 
@@ -127,6 +146,22 @@ public class GameScreen : MonoBehaviour
         canContinueToNextLine = true;
         SetOptions();
     }
+    private void PlayDialogueSound(int currentDisplayedCharacterCount)
+    {
+        if(currentDisplayedCharacterCount % frequencyLevel == 0)
+        {
+            if (stopAudioSource)
+            {
+                audioSource.Stop();
+            }
+            int randomIndex = Random.Range(0, dialogueTypingSoundClips.Length);
+            AudioClip soundClip = dialogueTypingSoundClips[randomIndex];
+
+            audioSource.pitch = Random.Range(minPitch, maxPitch);
+            audioSource.PlayOneShot(soundClip);
+        }
+    }
+
     private void HideOptions()
     {
         for (var i = optionsParent.transform.childCount - 1; i >= 0; i--)
