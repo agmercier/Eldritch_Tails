@@ -108,6 +108,9 @@ public class GameScreen : MonoBehaviour
 
     private IEnumerator SetSubtitles()
     {
+        //initial delay to load new voice
+        yield return new WaitForSeconds(typingSpeed);
+
         subtitles.SetText(_screen.SubtitlesText);
         subtitles.maxVisibleCharacters = 0;
         canContinueToNextLine = false;
