@@ -27,7 +27,15 @@ public class DialogueManager : MonoBehaviour
     private const string CharacterLeft = "left";
     private const string CharacterCenter = "center";
     private const string CharacterRight = "right";
-    
+
+    [Header("voices")]
+    private const string Audio_Voice = "voice";
+    [SerializeField] public DialogueAudioInfoSO defaultAudioInfo;
+    [SerializeField] public DialogueAudioInfoSO[] audioInfos;
+
+    private DialogueAudioInfoSO currentAudioInfo;
+    private Dictionary<string, DialogueAudioInfoSO> audioInfoDictionary;
+
     public static DialogueManager GetInstance()
     {
         return _instance;
@@ -40,12 +48,16 @@ public class DialogueManager : MonoBehaviour
             Debug.LogWarning("More than one instance of Dialogue Manager");
         }
         _instance = this;
+
+        currentAudioInfo = defaultAudioInfo;
     }
     
     private void Start()
     {
         _currentStory = new Story(inkFile.text);
         Debug.Log(PlayerPrefs.GetString("name"));
+
+        InitializeAudioInfoDictionary();
         
         ContinueStory();
     }
@@ -63,6 +75,8 @@ public class DialogueManager : MonoBehaviour
         Sprite characterCenterSprite = null;
         Sprite characterRightSprite = null;
 
+        DialogueAudioInfoSO voiceAudioInfo = currentAudioInfo;
+
         foreach (var splitTag in _currentStory.currentTags.Select(inkTag => inkTag.Split(":")))
         {
             switch (splitTag[0])
@@ -79,6 +93,10 @@ public class DialogueManager : MonoBehaviour
                 case CharacterRight:
                     characterRightSprite = LoadSprite(splitTag[1].Trim());
                     break;
+                case Audio_Voice:
+                    voiceAudioInfo = SetCurrentDialogueInfo(splitTag[1].Trim());
+                    break;
+
             }
         }
 
@@ -104,7 +122,8 @@ public class DialogueManager : MonoBehaviour
             ).ToArray(),
             CharacterLeftSprite = characterLeftSprite,
             CharacterCenterSprite = characterCenterSprite,
-            CharacterRightSprite = characterRightSprite
+            CharacterRightSprite = characterRightSprite,
+            voiceAudioInfo = voiceAudioInfo
         });
     }
 
@@ -120,6 +139,36 @@ public class DialogueManager : MonoBehaviour
 
         Debug.LogError("Cannot find asset with name: " + spriteName);
         return null;
+    }
+
+    private void InitializeAudioInfoDictionary()
+    {
+        audioInfoDictionary = new Dictionary<string, DialogueAudioInfoSO>();
+        audioInfoDictionary.Add(defaultAudioInfo.id, defaultAudioInfo);
+        foreach (DialogueAudioInfoSO audioInfo in audioInfos)
+        {
+            audioInfoDictionary.Add(audioInfo.id, audioInfo);
+        }
+    }
+
+    private DialogueAudioInfoSO SetCurrentDialogueInfo(string id)
+    {
+        DialogueAudioInfoSO audioInfo = null;
+        audioInfoDictionary.TryGetValue(id, out audioInfo);
+        if (audioInfo != null)
+        {
+            return audioInfo;
+        }
+        else
+        {
+            Debug.LogWarning("no matching audio info id: " + id);
+            foreach(string k in audioInfoDictionary.Keys)
+            {
+                Debug.LogWarning(k);
+
+            }
+            return defaultAudioInfo;
+        }
     }
 
     public void MakeChoice(int choiceIndex)

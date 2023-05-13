@@ -29,24 +29,24 @@ public class GameScreen : MonoBehaviour
     private Coroutine displayLineCoroutine;
     public bool canContinueToNextLine = false;
     private bool keyPressed = false;
+
     //taking sound variables
     [Header("Audio")]
-    [SerializeField] private AudioClip[] dialogueTypingSoundClips;
-    [SerializeField] private bool stopAudioSource;
-    [Range(1,5)]
-    [SerializeField] private int frequencyLevel = 2;
-    [Range(-3, 3)]
-    [SerializeField] private float maxPitch = 3.0f;
-    [Range(-3, 3)]
-    [SerializeField] private float minPitch = 0.5f;
-    
+    [SerializeField] private bool makePredictable;
+    [Range(0f, 1f)]
+    public float talkVolume = 0.1f;
+    [SerializeField] public DialogueAudioInfoSO defaultAudioInfo;
+    private DialogueAudioInfoSO currentAudioInfo;
     private AudioSource audioSource;
+
     
     private ScreenDetails _screen;
 
     private void Awake()
     {
         audioSource = this.gameObject.AddComponent<AudioSource>();
+
+        currentAudioInfo = defaultAudioInfo;
     }
 
     private void Update()
@@ -136,7 +136,7 @@ public class GameScreen : MonoBehaviour
             }
             else  //not a tag so display normaly
             {
-                PlayDialogueSound(subtitles.maxVisibleCharacters);
+                PlayDialogueSound(subtitles.maxVisibleCharacters, letter);
                 subtitles.maxVisibleCharacters++;
                 yield return new WaitForSeconds(typingSpeed);
             }
@@ -146,18 +146,51 @@ public class GameScreen : MonoBehaviour
         canContinueToNextLine = true;
         SetOptions();
     }
-    private void PlayDialogueSound(int currentDisplayedCharacterCount)
+    private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
     {
-        if(currentDisplayedCharacterCount % frequencyLevel == 0)
+        //set up variables
+        AudioClip[] dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
+        int frequencyLevel = currentAudioInfo.frequencyLevel;
+        float minPitch = currentAudioInfo.minPitch;
+        float maxPitch = currentAudioInfo.maxPitch;
+        bool stopAudioSource = currentAudioInfo.stopAudioSource;
+
+        if (currentDisplayedCharacterCount % frequencyLevel == 0)
         {
             if (stopAudioSource)
             {
                 audioSource.Stop();
             }
-            int randomIndex = Random.Range(0, dialogueTypingSoundClips.Length);
-            AudioClip soundClip = dialogueTypingSoundClips[randomIndex];
+            AudioClip soundClip = null;
 
-            audioSource.pitch = Random.Range(minPitch, maxPitch);
+            //predictable audio hashing
+            if (makePredictable)
+            {
+                int hashCode = currentCharacter.GetHashCode();
+                int predictableIndex = hashCode % dialogueTypingSoundClips.Length;
+                soundClip = dialogueTypingSoundClips[predictableIndex];
+                int minPitchInt = (int)(minPitch * 100);
+                int maxPitchInt = (int)(maxPitch * 100);
+                int pitchRange = maxPitchInt - minPitchInt;
+                //check if same so dont divide by 0
+                if(pitchRange != 0)
+                {
+                    int predictablePitchInt = (hashCode % pitchRange) + minPitchInt;
+                    float predictablePitch = predictablePitchInt / 100f;
+                    audioSource.pitch = predictablePitch;
+                }
+                else
+                {
+                    audioSource.pitch = minPitch;
+                }
+            }
+            else
+            {
+                int randomIndex = Random.Range(0, dialogueTypingSoundClips.Length);
+                soundClip = dialogueTypingSoundClips[randomIndex];
+                audioSource.pitch = Random.Range(minPitch, maxPitch);
+            }
+            audioSource.volume = talkVolume;
             audioSource.PlayOneShot(soundClip);
         }
     }
@@ -197,6 +230,8 @@ public class GameScreen : MonoBehaviour
         }
         displayLineCoroutine = StartCoroutine(SetSubtitles());
         SetCharacters();
+
+        this.currentAudioInfo = _screen.voiceAudioInfo;
     }
 }
 
@@ -211,7 +246,9 @@ public struct ScreenDetails
     public Sprite CharacterLeftSprite;
     public Sprite CharacterCenterSprite;
     public Sprite CharacterRightSprite;
-}
+
+    public DialogueAudioInfoSO voiceAudioInfo;
+    }
 
 public struct Option
 {
