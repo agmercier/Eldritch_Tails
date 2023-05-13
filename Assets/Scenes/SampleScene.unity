@@ -771,6 +771,7 @@ MonoBehaviour:
   defaultAudioInfo: {fileID: 11400000, guid: 2df47923463fd5d4bb5e6a2237f0ef5c, type: 2}
   audioInfos:
   - {fileID: 11400000, guid: e9dabe5b3bfa186499682921dd94cb44, type: 2}
+  - {fileID: 11400000, guid: dfbc3f1a8c46acd4e9e0c11d51ac0472, type: 2}
 --- !u!1 &925423459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,7 +1377,7 @@ MonoBehaviour:
   typingSpeed: 0.04
   canContinueToNextLine: 0
   makePredictable: 1
-  talkVolume: 0.097
+  talkVolume: 0.36
   defaultAudioInfo: {fileID: 11400000, guid: 2df47923463fd5d4bb5e6a2237f0ef5c, type: 2}
 --- !u!1 &1594579463
 GameObject:
