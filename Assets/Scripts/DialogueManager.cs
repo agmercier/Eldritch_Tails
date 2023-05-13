@@ -95,6 +95,7 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case Audio_Voice:
                     voiceAudioInfo = SetCurrentDialogueInfo(splitTag[1].Trim());
+                    currentAudioInfo = voiceAudioInfo;
                     break;
 
             }
