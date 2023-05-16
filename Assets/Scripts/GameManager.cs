@@ -1,11 +1,34 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Influence")]
     [SerializeField] private TMP_Text influenceText;
     [HideInInspector] public int influence;
+
+    [Header("Rune")]
+    public HashSet<string> Runes = new();
+
+    private static GameManager _instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance is null)
+                Debug.LogError("Game Manager is NULL");
+
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     private void Start()
     {

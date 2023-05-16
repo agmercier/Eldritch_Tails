@@ -5,6 +5,7 @@ using Ink.Runtime;
 using UnityEngine.UI;
 using System.IO;
 using System.Collections.Generic;
+using static System.Int32;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -27,9 +28,12 @@ public class DialogueManager : MonoBehaviour
     private const string CharacterLeft = "left";
     private const string CharacterCenter = "center";
     private const string CharacterRight = "right";
+    private const string AudioVoice = "voice";
+    private const string Rune = "rune";
+    private const string RuneX = "runeX";
+    private const string RuneY = "runeY";
 
     [Header("voices")]
-    private const string Audio_Voice = "voice";
     [SerializeField] public DialogueAudioInfoSO defaultAudioInfo;
     [SerializeField] public DialogueAudioInfoSO[] audioInfos;
 
@@ -55,7 +59,6 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         _currentStory = new Story(inkFile.text);
-        Debug.Log(PlayerPrefs.GetString("name"));
 
         InitializeAudioInfoDictionary();
         
@@ -74,6 +77,9 @@ public class DialogueManager : MonoBehaviour
         Sprite characterLeftSprite = null;
         Sprite characterCenterSprite = null;
         Sprite characterRightSprite = null;
+        Sprite runeSprite = null;
+        var runeX = 0;
+        var runeY = 0;
 
         DialogueAudioInfoSO voiceAudioInfo = currentAudioInfo;
 
@@ -93,11 +99,19 @@ public class DialogueManager : MonoBehaviour
                 case CharacterRight:
                     characterRightSprite = LoadSprite(splitTag[1].Trim());
                     break;
-                case Audio_Voice:
+                case AudioVoice:
                     voiceAudioInfo = SetCurrentDialogueInfo(splitTag[1].Trim());
                     currentAudioInfo = voiceAudioInfo;
                     break;
-
+                case Rune:
+                    runeSprite = LoadSprite(splitTag[1].Trim());
+                    break;
+                case RuneX:
+                    runeX = Parse(splitTag[1].Trim());
+                    break;
+                case RuneY:
+                    runeY = Parse(splitTag[1].Trim());
+                    break;
             }
         }
 
@@ -124,7 +138,10 @@ public class DialogueManager : MonoBehaviour
             CharacterLeftSprite = characterLeftSprite,
             CharacterCenterSprite = characterCenterSprite,
             CharacterRightSprite = characterRightSprite,
-            voiceAudioInfo = voiceAudioInfo
+            VoiceAudioInfo = voiceAudioInfo,
+            RuneSprite = runeSprite,
+            RuneX = runeX,
+            RuneY = runeY
         });
     }
 

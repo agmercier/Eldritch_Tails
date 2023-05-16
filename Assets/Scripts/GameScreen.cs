@@ -21,6 +21,8 @@ public class GameScreen : MonoBehaviour
     [SerializeField] private Image characterLeft;
     [SerializeField] private Image characterCenter;
     [SerializeField] private Image characterRight;
+    [Space(10)]
+    [SerializeField] private Button runeButton;
 
     [Header("Parameters")]
     [SerializeField] private float typingSpeed = 0.04f;
@@ -104,6 +106,13 @@ public class GameScreen : MonoBehaviour
         {
             characterRight.enabled = false;
         }
+    }
+
+    private void SetRune()
+    {
+        runeButton.GetComponent<Image>().sprite = _screen.RuneSprite;
+        runeButton.transform.SetLocalPositionAndRotation(new Vector3(_screen.RuneX, _screen.RuneY, 0), Quaternion.identity);
+        runeButton.onClick.AddListener(delegate { GameManager.Instance.Runes.Add(_screen.RuneSprite.name);});
     }
 
     private IEnumerator SetSubtitles()
@@ -233,8 +242,12 @@ public class GameScreen : MonoBehaviour
         }
         displayLineCoroutine = StartCoroutine(SetSubtitles());
         SetCharacters();
+        if (_screen.RuneSprite != null)
+        {
+            SetRune();
+        }
 
-        this.currentAudioInfo = _screen.voiceAudioInfo;
+        currentAudioInfo = _screen.VoiceAudioInfo;
     }
 }
 
@@ -250,8 +263,12 @@ public struct ScreenDetails
     public Sprite CharacterCenterSprite;
     public Sprite CharacterRightSprite;
 
-    public DialogueAudioInfoSO voiceAudioInfo;
-    }
+    public DialogueAudioInfoSO VoiceAudioInfo;
+
+    public Sprite RuneSprite;
+    public int RuneX;
+    public int RuneY;
+}
 
 public struct Option
 {
