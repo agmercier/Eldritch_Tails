@@ -37,7 +37,7 @@ public class GameScreen : MonoBehaviour
     private Coroutine timer_coroutine;
     public Image timer_foreground;
     public GameObject timer_container;
-    public float max_time = 5.0f;
+    public float max_time = 0.04f;
     float time_remaining;
 
 
@@ -172,21 +172,22 @@ public class GameScreen : MonoBehaviour
             
         }
         //start timer
-        timer_coroutine = StartCoroutine(Timer());
+        timer_coroutine = StartCoroutine(Timer(_screen.SubtitlesText.Length));
 
         canContinueToNextLine = true;
         SetOptions();
     }
-    private IEnumerator Timer()
+    private IEnumerator Timer(float numLetters)
     {
         timer_container.SetActive(true);
-        time_remaining = max_time;
+        float fullTime = max_time * (numLetters * 0.01f);
+        time_remaining = fullTime;
         timer_foreground.fillAmount = 1;
 
         while (time_remaining > 0)
         {
             time_remaining -= Time.deltaTime;
-            timer_foreground.fillAmount = time_remaining / max_time;
+            timer_foreground.fillAmount = time_remaining / fullTime;
             yield return null;
         }
         foreach (var option in _screen.Options)
