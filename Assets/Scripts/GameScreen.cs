@@ -32,6 +32,15 @@ public class GameScreen : MonoBehaviour
     public bool canContinueToNextLine = false;
     private bool keyPressed = false;
 
+
+    //timer
+    private Coroutine timer_coroutine;
+    public Image timer_foreground;
+    public GameObject timer_container;
+    public float max_time = 5.0f;
+    float time_remaining;
+
+
     //taking sound variables
     [Header("Audio")]
     [SerializeField] private bool makePredictable;
@@ -117,6 +126,13 @@ public class GameScreen : MonoBehaviour
 
     private IEnumerator SetSubtitles()
     {
+        //stop timer
+        if (timer_coroutine != null)
+        {
+            StopCoroutine(timer_coroutine);
+            timer_container.SetActive(false);
+        }
+
         //initial delay to load new voice
         yield return new WaitForSeconds(typingSpeed);
 
@@ -155,9 +171,35 @@ public class GameScreen : MonoBehaviour
 
             
         }
+        //start timer
+        timer_coroutine = StartCoroutine(Timer());
+
         canContinueToNextLine = true;
         SetOptions();
     }
+    private IEnumerator Timer()
+    {
+        timer_container.SetActive(true);
+        time_remaining = max_time;
+        timer_foreground.fillAmount = 1;
+
+        while (time_remaining > 0)
+        {
+            time_remaining -= Time.deltaTime;
+            timer_foreground.fillAmount = time_remaining / max_time;
+            yield return null;
+        }
+        foreach (var option in _screen.Options)
+        {
+            if(option.Text == "Continue")
+            { 
+                option.Select();
+            }
+
+        }
+        timer_container.SetActive(false);
+    }
+
     private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
     {
         //set up variables
