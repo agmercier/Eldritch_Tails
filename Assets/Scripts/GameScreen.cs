@@ -1,11 +1,12 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
-
-
+using System.Linq;
+using Random = UnityEngine.Random;
 
 
 public class GameScreen : MonoBehaviour
@@ -22,7 +23,8 @@ public class GameScreen : MonoBehaviour
     [SerializeField] private Image characterCenter;
     [SerializeField] private Image characterRight;
     [Space(10)]
-    [SerializeField] private Button runeButton;
+    [SerializeField] private Transform runeOrigin;
+    [SerializeField] private Button runePrefab;
 
     [Header("Parameters")]
     [SerializeField] private float typingSpeed = 0.04f;
@@ -117,11 +119,19 @@ public class GameScreen : MonoBehaviour
         }
     }
 
-    private void SetRune()
+    private void SetRunes()
     {
-        runeButton.GetComponent<Image>().sprite = _screen.RuneSprite;
-        runeButton.transform.SetLocalPositionAndRotation(new Vector3(_screen.RuneX, _screen.RuneY, 0), Quaternion.identity);
-        runeButton.onClick.AddListener(delegate { GameManager.Instance.Runes.Add(_screen.RuneSprite.name);});
+        for (var i = runeOrigin.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(runeOrigin.transform.GetChild(i).gameObject);
+        }
+        
+        foreach (var rune in _screen.Runes.Where(rune => !rune.IsDoNothing))
+        {
+            var button = Instantiate(runePrefab, runeOrigin);
+            button.transform.SetLocalPositionAndRotation(new Vector3(rune.XOffset, rune.YOffset), Quaternion.identity);
+            button.GetComponentInChildren<Button>().onClick.AddListener(rune.Select);
+        }
     }
 
     private IEnumerator SetSubtitles()
@@ -264,12 +274,11 @@ public class GameScreen : MonoBehaviour
             Destroy(optionsParent.transform.GetChild(i).gameObject);
         }
         
-        foreach (var option in _screen.Options)
+        foreach (var option in _screen.Options.Where(option => option.Text is "Do nothing" or "Continue"))
         {
             var optionObject = Instantiate(optionPrefab, optionsParent.transform);
             optionObject.GetComponentInChildren<TMP_Text>().SetText(option.Text);
-            optionObject.GetComponentInChildren<Button>().onClick.AddListener(option.Select); 
-            
+            optionObject.GetComponentInChildren<Button>().onClick.AddListener(option.Select);
         }
     }
 
@@ -285,10 +294,7 @@ public class GameScreen : MonoBehaviour
         }
         displayLineCoroutine = StartCoroutine(SetSubtitles());
         SetCharacters();
-        if (_screen.RuneSprite != null)
-        {
-            SetRune();
-        }
+        SetRunes();
 
         currentAudioInfo = _screen.VoiceAudioInfo;
     }
@@ -308,9 +314,15 @@ public struct ScreenDetails
 
     public DialogueAudioInfoSO VoiceAudioInfo;
 
-    public Sprite RuneSprite;
-    public int RuneX;
-    public int RuneY;
+    public Rune[] Runes;
+
+    public struct Rune
+    {
+        public UnityAction Select;
+        public int XOffset;
+        public int YOffset;
+        public bool IsDoNothing;
+    }
 }
 
 public struct Option

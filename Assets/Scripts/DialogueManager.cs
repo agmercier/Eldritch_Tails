@@ -29,7 +29,6 @@ public class DialogueManager : MonoBehaviour
     private const string CharacterCenter = "center";
     private const string CharacterRight = "right";
     private const string AudioVoice = "voice";
-    private const string Rune = "rune";
     private const string RuneX = "runeX";
     private const string RuneY = "runeY";
 
@@ -77,12 +76,11 @@ public class DialogueManager : MonoBehaviour
         Sprite characterLeftSprite = null;
         Sprite characterCenterSprite = null;
         Sprite characterRightSprite = null;
-        Sprite runeSprite = null;
-        var runeX = 0;
-        var runeY = 0;
+        var runes = new ScreenDetails.Rune[_currentStory.currentChoices.Count];
 
         DialogueAudioInfoSO voiceAudioInfo = currentAudioInfo;
 
+        Debug.Log($"Runes: {runes.Length}");
         foreach (var splitTag in _currentStory.currentTags.Select(inkTag => inkTag.Split(":")))
         {
             switch (splitTag[0])
@@ -103,16 +101,21 @@ public class DialogueManager : MonoBehaviour
                     voiceAudioInfo = SetCurrentDialogueInfo(splitTag[1].Trim());
                     currentAudioInfo = voiceAudioInfo;
                     break;
-                case Rune:
-                    runeSprite = LoadSprite(splitTag[1].Trim());
+                case { } s when s.StartsWith(RuneX):
+                    runes[Parse(s.Split("_")[1])].XOffset = Parse(splitTag[1].Trim());
                     break;
-                case RuneX:
-                    runeX = Parse(splitTag[1].Trim());
-                    break;
-                case RuneY:
-                    runeY = Parse(splitTag[1].Trim());
+                case { } s when s.StartsWith(RuneY):
+                    runes[Parse(s.Split("_")[1])].YOffset = Parse(splitTag[1].Trim());
                     break;
             }
+        }
+
+        // Set rune actions
+        for (var index = 0; index < runes.Length; index++)
+        {
+            var choiceIndex = index;
+            runes[index].Select = delegate { MakeChoice(choiceIndex); };
+            runes[index].IsDoNothing = _currentStory.currentChoices[index].text is "Do nothing" or "Continue";
         }
 
         // Update UI
@@ -139,9 +142,7 @@ public class DialogueManager : MonoBehaviour
             CharacterCenterSprite = characterCenterSprite,
             CharacterRightSprite = characterRightSprite,
             VoiceAudioInfo = voiceAudioInfo,
-            RuneSprite = runeSprite,
-            RuneX = runeX,
-            RuneY = runeY
+            Runes = runes
         });
     }
 

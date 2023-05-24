@@ -3,14 +3,14 @@ VAR barrier = "on"
 
 ===start1===
 West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever <color=\#FF0000>cut</color> and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:woods #voice:dl
-The water splashes up and leaves black stains on his skin and clothes as NPC's running footsteps disturb it. Even though the stream is only small, the resistance is powerful. The water is pulling him down, slowing him down and seems to whisper "don't leave, don't leave..." #background:woods 
-NPC wriggles himself from its grip and continues running. He has to get out! Navigating through the dark trees becomes harder and harder, as the forest gets more dense and the branches seem to be closing in on him, gripping onto his clothes and hair and making him trip. They hook into his skin and lock him in a horrible embrace he can't escape from. He screams, but the only audible sound is the ever present wind rustling through the leaves, as if the forest is laughing at him. #background: woods #left: NPC (temporary) 
+The water splashes up and leaves black stains on his skin and clothes as NPC's running footsteps disturb it. Even though the stream is only small, the resistance is powerful. The water is pulling him down, slowing him down and seems to whisper "don't leave, don't leave..." #background:woods
+NPC wriggles himself from its grip and continues running. He has to get out! Navigating through the dark trees becomes harder and harder, as the forest gets more dense and the branches seem to be closing in on him, gripping onto his clothes and hair and making him trip. They hook into his skin and lock him in a horrible embrace he can't escape from. He screams, but the only audible sound is the ever present wind rustling through the leaves, as if the forest is laughing at him. #background: woods #left: NPC (temporary)
 + [Continue] -> wakesup
 
 ===wakesup===
 He wakes up with the sound still echoing in his ears and drenched in sweat. Bewildered, he sits up and sees his wife still peacefully asleep lying next to him. #background: inside #left: NPC (temporary)
 Another nightmare, then...
-He carefully gets off the bed and looks out the window, into the dark forest. It should be around sunrise, but because NPC and his family live on the outskirts of the village, right next to the forest, it is always dark. #background: house
+He carefully gets off the bed and looks out the window, into the dark forest. It should be around sunrise, but because NPC and his family live on the outskirts of the village, right next to the forest, it is always dark. #background: house #runeX_0:50 #runeY_0:50 #runeX_1:200 #runeY_1:200
 + [Knock over glass] ->knockoverglass
 + {knockoverglass} [Knock over glass] ->knockoverglass2
 + [Do nothing] -> introfamily
@@ -19,7 +19,7 @@ He carefully gets off the bed and looks out the window, into the dark forest. It
 Suddenly, the glass of water standing on the bedside table shatters into thousands of tiny pieces, startling him. #background: inside
 Clearly, his daughter heard the noise as well, as she sleepily walked into the room.
 Daughter: "Hm? You're awake too, papa?"
-She looks at his pale, startled face. 
+She looks at his pale, startled face.
 -> introfamily
 
 ===knockoverglass2===
@@ -37,13 +37,13 @@ Daughter: "Hehe, it will be an adventure!" she replies excitedly and then grabs 
 
 ===gotovillage1===
 Later that day, he makes his way to the other side of the village, where the vegetable field is located. He's out of food, but it seems the village crops are not in abundance this year. There are only a few carrots, pale and weirdly shaped, and lettuce, half eaten by maggots and other vermin, on display at the food stall. #background: veggie field 1 #left: NPC (temporary)
-He sighs and gets the things he needs. 
+He sighs and gets the things he needs.
 + [Do nothing] -> requestforwood
 + {accept1 > 2} [Influence field] ->veggie1
 
 ===requestforwood===
 Plower: "Now, don't look so disappointing. I tried to save what I could, otherwise we would have nothing." #background: veggie field 1 #right: plower #left: NPC (temporary)
-He crosses his arms, which are covered in dirt, showing he clearly harvested the field only this morning. 
+He crosses his arms, which are covered in dirt, showing he clearly harvested the field only this morning.
 Plower: "When the well is completed and we have fresh water again, I'm telling you it will be better!" #background: veggie field 1 #right: plower #left: NPC (temporary)
 In the old days, the village had had a well as well for their water supply, but it has long since fallen to ruins and for now, the village is dependent on the muddy creeks for their water supply. However, recently the villagers started on the project to rebuild the old thing. It is tedious work, but it finally seems like it's getting closer to completion. #background: veggie field 1
 Plower: "Speaking of it, I heard you want to leave the village", he continues. A hint of displeasure leaks through his casual demeanor. #background: veggie field 1 #right: plower #left: NPC (temporary)
@@ -65,7 +65,7 @@ Plower: "Oh, by the way, could I ask a job of you? My crates for storing vegetab
 ===accept1===
 NPC: "Ofcourse, I will get to it", NPC replies. Taking on jobs for his fellow villagers will be a great way to earn money, which he will surely need if he is to leave this place. #background: veggie field 1 #left: NPC (temporary) #right: plower
 Plower: "Great. Thank you!" #background: veggie field 1 #left: NPC (temporary) #right: plower
-NPC makes his way through the village back to his home to collect his axe to cut some wood in the forest. #background: village #left: NPC (temporary) 
+NPC makes his way through the village back to his home to collect his axe to cut some wood in the forest. #background: village #left: NPC (temporary)
 "NPC?" #background: village
 He turns around at hearing his name and sees another villager. She clearly just returned from the hunt, as a bow is slung around her shoulder and she's holding a handful of freshly killed birds and rabbits. #background: village #left: NPC (temporary) #right: hunter
 NPC: "Hello Jennifer." #background: village #left: NPC (temporary) #right: hunter
@@ -81,25 +81,25 @@ He can't help but feel uneasy. Why do all the other villagers seem so opposed to
 ===accept2===
 NPC: "Ofcourse, I will get to it", NPC replies. Taking on jobs for his fellow villagers will be a great way to earn money, which he will surely need if he is to leave this place. #background: veggie field 1 #left: NPC (temporary) #right: plower
 Plower: "Great. Thank you!" #background: veggie field 1 #left: NPC (temporary) #right: plower
-NPC makes his way through the village back to his home to collect his axe to cut some wood in the forest. #background: village #left: NPC (temporary) 
+NPC makes his way through the village back to his home to collect his axe to cut some wood in the forest. #background: village #left: NPC (temporary)
 "NPC?" #background: village
 He turns around at hearing his name and sees Jennifer. She clearly just returned from the hunt, as a bow is slung around her shoulder and she's holding a handful of freshly killed birds and rabbits. #background: village #left: NPC (temporary) #right: hunter
 NPC: "Hello again, Jennifer, seems you caught a lot again." #background: village #left: NPC (temporary) #right: hunter
 Jennifer: "Yeah, the last few hunts went terrible and we haven't seen eachother in days", she replies frowning.
-Huh? He could swear he saw her only yesterday, carrying a similar catch to the one she has now. 
+Huh? He could swear he saw her only yesterday, carrying a similar catch to the one she has now.
 She sits down and grabs her knife, starting to skillfully remove the skin and innards of the first catch. The blood drips down into a bucket by her side, the steady sound cutting through the silence after his response. #background: village #left: NPC (temporary) #right: hunter
 Drip. Drip. Drip. #background: village #left: NPC (temporary) #right: hunter
 NPC can't shake the feeling that this whole scene seems familiar to him and can't help but feel uneasy.
 + [Go back to village] ->coincidence1
 
 ===veggie1===
-Suddenly, he sees something moving from the corner of his eye. He turns to look.. #background: veggie field 4 #left: NPC (temporary) 
-In the vegetable bed next to him, the earth in some places is moving, like something is moving underneath. The lettuce was eaten by vermin, so maybe it's rats? Still, it is best to know for sure. #background: veggie field 4 #left: NPC (temporary) 
-NPC leans over the vegetable bed and reaches for the place where the soil is moving, ready to expose what's beneath it. #background: veggie field 4 #left: NPC (temporary) 
-As soon as he does so, a withered hand emerges from the ground and locks his wrist in a tight grip. NPC yells out in surprise, but the hunter is already gone again and there's no one to see what's going on. #background: veggie field 4 #left: NPC (temporary) 
-The hand is immensely strong and NPC can't do anything as it slowly pulls his arm into the ground. With his other hand, NPC tries to stop it, but the dry earth forms little resistance and he sinks deeper into it. #background: veggie field 4 #left: NPC (temporary) 
-What is going on?! #background: veggie field 4 #left: NPC (temporary) 
-He screams for help until his mouth starts filling with earth and his yells are muffled. Before long, his eyes were submerged as well and he was completely dragged into the ground. #background: veggie field 4 
+Suddenly, he sees something moving from the corner of his eye. He turns to look.. #background: veggie field 4 #left: NPC (temporary)
+In the vegetable bed next to him, the earth in some places is moving, like something is moving underneath. The lettuce was eaten by vermin, so maybe it's rats? Still, it is best to know for sure. #background: veggie field 4 #left: NPC (temporary)
+NPC leans over the vegetable bed and reaches for the place where the soil is moving, ready to expose what's beneath it. #background: veggie field 4 #left: NPC (temporary)
+As soon as he does so, a withered hand emerges from the ground and locks his wrist in a tight grip. NPC yells out in surprise, but the hunter is already gone again and there's no one to see what's going on. #background: veggie field 4 #left: NPC (temporary)
+The hand is immensely strong and NPC can't do anything as it slowly pulls his arm into the ground. With his other hand, NPC tries to stop it, but the dry earth forms little resistance and he sinks deeper into it. #background: veggie field 4 #left: NPC (temporary)
+What is going on?! #background: veggie field 4 #left: NPC (temporary)
+He screams for help until his mouth starts filling with earth and his yells are muffled. Before long, his eyes were submerged as well and he was completely dragged into the ground. #background: veggie field 4
 ->END
 
 ===decline1===
@@ -164,15 +164,15 @@ Leader: "Oh, such a splendid place! Good food and friendly people is all you nee
 Huh? Is the village leader not acting rather strange? He's saying the exact same thing again, like a broken record or a rehersed response. How odd. #background: leader house #left: NPC (temporary) #right: leader
 Leader: "But, I think this village is the most wonderful of all. It is a good place to call home." #background: leader house #left: NPC (temporary) #right: leader
 NPC: "Yeah, I'll be back later to talk more." #background: leader house #left: NPC (temporary) #right: leader
-Then NPC hurriedly walks off, feeling slightly unsettled by the leader's behaviour. #background: leader house #left: NPC (temporary)  
+Then NPC hurriedly walks off, feeling slightly unsettled by the leader's behaviour. #background: leader house #left: NPC (temporary)
 + {not coincidence2} [Take a look] ->look1
 + {not coincidence2} [Get wood] ->getwood1
 + {not stay1} [Stay in village] ->stay1
 + {not strange2} [Visit leader again] ->strange2
 
 ===strange2===
-A few hours have passed and NPC decides to try talking to the leader again. The strangeness of their previous encounter is starting to leave his mind. The leader simply is just a very enthousiastic man, so that's why he was just happy about all the places they talked about. #background: leader house #left: NPC (temporary) 
-He knocks again. #background: leader house #left: NPC (temporary) 
+A few hours have passed and NPC decides to try talking to the leader again. The strangeness of their previous encounter is starting to leave his mind. The leader simply is just a very enthousiastic man, so that's why he was just happy about all the places they talked about. #background: leader house #left: NPC (temporary)
+He knocks again. #background: leader house #left: NPC (temporary)
 Leader: "Good day! What can I help you with today?" #background: leader house #left: NPC (temporary) #right: leader
 Again? Word for word, it is the same greeting as before. Such a thing is unnatural, right? #background: leader house #left: NPC (temporary) #right: leader
 Without saying anything more, NPC walks off. #background: leader house #left: NPC (temporary) #right: leader
@@ -196,17 +196,17 @@ Well, for now he has his job to do. He walks away into the forest to get some wo
 He stops in front of a big, sturdy tree and gets out his axe. Swinging it above his head, he forcefully lets it down against the trunk. #background: woods
 Nothing happens.
 Again, he swings the axe with as much force as he can. Still, the tree doesn't budge or break.
-Confused, he takes a closer look at the tree. There is no indication he even tried to cut it down at all, not even a single mark on the bark. 
+Confused, he takes a closer look at the tree. There is no indication he even tried to cut it down at all, not even a single mark on the bark.
 What is going on?
 -> gamecrashes
 
 ===gamecrashes===
-->END 
+->END
 
 ===coincidence2===
 Suddenly a loud creaking sound disturbs the singing of birds in the forest and a large tree comes falling down, blocking the road before him. #background: fallen tree #left: NPC (temporary)
 What is this?! #background: fallen tree #left: NPC (temporary)
-Being a lumberjack, NPC is fairly knowledgable on trees. Surely, he would have noticed if such an unsteady tree had been standing so close to the village? 
+Being a lumberjack, NPC is fairly knowledgable on trees. Surely, he would have noticed if such an unsteady tree had been standing so close to the village?
 He sighs and walks closer. It's a big oak and will probably take days to clean up, which means this road is out of order for now too. #background: fallen tree #left: NPC (temporary)
 At this rate, it seems he can never leave this village. #background: fallen tree #left: NPC (temporary)
 + {not stay1} [Stay in village] ->stay1
@@ -305,7 +305,7 @@ Realizing that something was very wrong, not only with the town but also his own
 + {barrier == "off" || barrier == "Off" || barrier == "of"|| barrier == ""|| barrier == "delete" || barrier == "Delete"} [Continue] -> ForestLeave
 
 ===ForestStay===
-He ran on deeper and deeper into the forest. The trees grew more dense, blocking out more of the sunlight and it seemed to grow darker with every step. He still pushed on. Just about as he was to cross the treshold of the part of the forest that he knew, he realized that he was running, but he was not moving. Panicked he pushed even harder, even further, but no matter what he stayed in the same place. #background: dark woods #left: NPC (temporary) 
+He ran on deeper and deeper into the forest. The trees grew more dense, blocking out more of the sunlight and it seemed to grow darker with every step. He still pushed on. Just about as he was to cross the treshold of the part of the forest that he knew, he realized that he was running, but he was not moving. Panicked he pushed even harder, even further, but no matter what he stayed in the same place. #background: dark woods #left: NPC (temporary)
 Daughter: "Come on dad, your not just gonna leave us behind are you?" #background: dark woods #left: NPC (temporary) #right: daughter
 Turning around he saw his daughter. Standing, completely fine. But it wasn't his daughter. None of this was right. In a fit of desperation he turned around and ran at her. Almost when he had reached her, he seemed to trip on nothing. and fall. #background: dark woods #left: NPC (temporary) #right: daughter
 -> NormalReset
