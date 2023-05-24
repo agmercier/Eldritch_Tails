@@ -110,7 +110,7 @@ A proper school for his kid and ample new opportunities for his wife and himself
 + [Continue] ->question1
 
 ===question1===
-Plower: "Oh, by the way, could I ask a job of you? My crates for storing vegetables are getting weary and old. Can you get me some fresh wood to repair them?" #left: NPC #right: plower #voice:cursed
+Plower: "Oh, by the way, could I ask a job of you? My crates for storing vegetables are getting weary and old. Can you get me some fresh wood to repair them?" #left: NPC #right: plower #voice:cursed #runeX_0:0 #runeY_0:-350
 + {not accept1} [Accept] ->accept1
 + {accept1} [Accept] -> accept2
 + [Decline] ->decline1

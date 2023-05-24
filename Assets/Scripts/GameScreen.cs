@@ -193,6 +193,7 @@ public class GameScreen : MonoBehaviour
     {
         timer_container.SetActive(true);
         float fullTime = max_time * (numLetters * 0.01f);
+        fullTime = Math.Max(fullTime, 5.0f);
         time_remaining = fullTime;
         timer_foreground.fillAmount = 1;
 
