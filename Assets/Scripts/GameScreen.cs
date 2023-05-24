@@ -52,7 +52,11 @@ public class GameScreen : MonoBehaviour
     private DialogueAudioInfoSO currentAudioInfo;
     private AudioSource audioSource;
 
-    
+    private readonly string[] choiceExclude = { "Continue", "Do nothing", "Go to the village", "Nod", "Decline", "Go back to village", "Go back home", "Set out to get medicine", "GO HOME", "Fetch some water from the well", "Continue to well" };
+    private readonly string[] choiceExcludeNotTimer = { "Continue", "Do nothing", "Go to the village", "Nod", "Decline", "Go back to village", "Go back home", "Set out to get medicine", "GO HOME", "Fetch some water from the well", "Continue to well", "Western town", "Village in the mountains", "Capital", "Hmmm... strange", "Comment", "Continue when It is done", "GO. DEEPER. INTO. THE. WOODS.", "Realise" };
+
+    private string NPC_name;
+
     private ScreenDetails _screen;
 
     private void Awake()
@@ -60,6 +64,8 @@ public class GameScreen : MonoBehaviour
         audioSource = this.gameObject.AddComponent<AudioSource>();
 
         currentAudioInfo = defaultAudioInfo;
+
+        NPC_name = PlayerPrefs.GetString("name");
     }
 
     private void Update()
@@ -202,7 +208,7 @@ public class GameScreen : MonoBehaviour
         }
         foreach (var option in _screen.Options)
         {
-            if(option.Text == "Continue")
+            if(choiceExclude.Contains(option.Text))
             { 
                 option.Select();
             }
@@ -273,8 +279,7 @@ public class GameScreen : MonoBehaviour
         {
             Destroy(optionsParent.transform.GetChild(i).gameObject);
         }
-        
-        foreach (var option in _screen.Options.Where(option => option.Text is "Do nothing" or "Continue"))
+        foreach (var option in _screen.Options.Where(option => choiceExcludeNotTimer.Contains(option.Text)))
         {
             var optionObject = Instantiate(optionPrefab, optionsParent.transform);
             optionObject.GetComponentInChildren<TMP_Text>().SetText(option.Text);

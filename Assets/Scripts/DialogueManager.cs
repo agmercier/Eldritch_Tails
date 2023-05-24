@@ -31,6 +31,7 @@ public class DialogueManager : MonoBehaviour
     private const string AudioVoice = "voice";
     private const string RuneX = "runeX";
     private const string RuneY = "runeY";
+    private readonly string[] choiceExclude = { "Continue", "Do nothing", "Go to the village", "Nod", "Decline", "Go back to village", "Go back home", "Set out to get medicine", "GO HOME", "Fetch some water from the well", "Continue to well", "Western town", "Village in the mountains", "Capital", "Hmmm... strange", "Comment", "Continue when It is done", "GO. DEEPER. INTO. THE. WOODS." };
 
     [Header("voices")]
     [SerializeField] public DialogueAudioInfoSO defaultAudioInfo;
@@ -38,6 +39,8 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueAudioInfoSO currentAudioInfo;
     private Dictionary<string, DialogueAudioInfoSO> audioInfoDictionary;
+
+    private string NPC_name;
 
     public static DialogueManager GetInstance()
     {
@@ -53,6 +56,10 @@ public class DialogueManager : MonoBehaviour
         _instance = this;
 
         currentAudioInfo = defaultAudioInfo;
+
+        //NPC_name = PlayerPrefs.GetString("name");
+        //_currentStory.variablesState["NPC_Name"] = NPC_name;
+
     }
     
     private void Start()
@@ -67,6 +74,7 @@ public class DialogueManager : MonoBehaviour
     private void ContinueStory()
     {
         ChangeBarrier();
+        ChangeWell();
 
         if (!_currentStory.canContinue) return;
         
@@ -115,7 +123,7 @@ public class DialogueManager : MonoBehaviour
         {
             var choiceIndex = index;
             runes[index].Select = delegate { MakeChoice(choiceIndex); };
-            runes[index].IsDoNothing = _currentStory.currentChoices[index].text is "Do nothing" or "Continue";
+            runes[index].IsDoNothing = choiceExclude.Contains(_currentStory.currentChoices[index].text);
         }
 
         // Update UI
@@ -204,6 +212,18 @@ public class DialogueManager : MonoBehaviour
         foreach (string  line in fileLines)
         {
             string variableName = "barrier";
+            object variableValue = line;
+            _currentStory.variablesState[variableName] = variableValue;
+        }
+    }
+    private void ChangeWell()
+    {
+        string path = Application.streamingAssetsPath + "/Well/" + "well" + ".txt";
+        List<string> fileLines = File.ReadAllLines(path).ToList();
+
+        foreach (string line in fileLines)
+        {
+            string variableName = "well";
             object variableValue = line;
             _currentStory.variablesState[variableName] = variableValue;
         }
