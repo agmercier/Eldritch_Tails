@@ -4,6 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class StartScreen : MonoBehaviour
 {
+    public GameObject panel;
+    public GameObject creditPanel;
+
+    private void Start()
+    {
+        creditPanel.SetActive(false);
+        panel.SetActive(true);
+    }
+
     public void StartGame()
     {
         var playerName = GameObject.Find("PlayerName").GetComponent<TMP_Text>().text;
@@ -11,8 +20,21 @@ public class StartScreen : MonoBehaviour
         SceneManager.LoadScene("Scenes/SampleScene");
     }
 
-    public void Credits()
+    public void goCredit()
     {
-        SceneManager.LoadScene("Scenes/CreditsScene");
+        panel.SetActive(false);
+        creditPanel.SetActive(true);
+    }
+
+    public void exitCredit()
+    {
+        creditPanel.SetActive(false);
+        panel.SetActive(true);
+    }
+
+    public void exitGame()
+    {
+        Debug.Log("exitgame");
+        Application.Quit();
     }
 }
