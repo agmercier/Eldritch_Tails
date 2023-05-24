@@ -873,6 +873,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8a6bfd2aa3e111242a13c5de02360f06, type: 2}
   - {fileID: 11400000, guid: 52812ed71ff6c3a44b74d26bad9e7445, type: 2}
   - {fileID: 11400000, guid: 36a4de6f5a2e7d746a070ea5c566c103, type: 2}
+  - {fileID: 11400000, guid: d92d5de8e73f94445a5e69c6213cf990, type: 2}
 --- !u!1 &925423459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,7 +1558,6 @@ MonoBehaviour:
   timer_container: {fileID: 982415734}
   max_time: 10
   makePredictable: 1
-  talkVolume: 0.36
   defaultAudioInfo: {fileID: 11400000, guid: 2df47923463fd5d4bb5e6a2237f0ef5c, type: 2}
 --- !u!1 &1594579463
 GameObject:

@@ -26,8 +26,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7505bd7095408c64bbecf59882534a8f, type: 3}
   - {fileID: 8300000, guid: 98f1ba7db4e70744a8079c7fc360eb18, type: 3}
   - {fileID: 8300000, guid: 5a3d53c89baf1924c83dccf0a656f89e, type: 3}
-  frequencyLevel: 15
+  frequencyLevel: 4
   maxPitch: 1.47
   minPitch: 0.82
-  talkVolume: 0.227
+  talkVolume: 0.134
   stopAudioSource: 0
