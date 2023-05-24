@@ -9,5 +9,10 @@ public class StartScreen : MonoBehaviour
         var playerName = GameObject.Find("PlayerName").GetComponent<TMP_Text>().text;
         PlayerPrefs.SetString("name", playerName);
         SceneManager.LoadScene("Scenes/SampleScene");
-    } 
+    }
+
+    public void Credits()
+    {
+        SceneManager.LoadScene("Scenes/CreditsScene");
+    }
 }
