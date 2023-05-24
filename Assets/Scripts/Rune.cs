@@ -13,7 +13,7 @@ public class Rune : MonoBehaviour
 
     public void ChangeWhenHover()
     {
-        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0.5f);
+        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0.3f);
     }
 
     public void ChangeWhenLeaves()
