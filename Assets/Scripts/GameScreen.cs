@@ -46,8 +46,6 @@ public class GameScreen : MonoBehaviour
     //taking sound variables
     [Header("Audio")]
     [SerializeField] private bool makePredictable;
-    [Range(0f, 1f)]
-    public float talkVolume = 0.1f;
     [SerializeField] public DialogueAudioInfoSO defaultAudioInfo;
     private DialogueAudioInfoSO currentAudioInfo;
     private AudioSource audioSource;
@@ -223,6 +221,7 @@ public class GameScreen : MonoBehaviour
         float minPitch = currentAudioInfo.minPitch;
         float maxPitch = currentAudioInfo.maxPitch;
         bool stopAudioSource = currentAudioInfo.stopAudioSource;
+        float talkVolume = currentAudioInfo.talkVolume;
 
         if (currentDisplayedCharacterCount % frequencyLevel == 0)
         {
