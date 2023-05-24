@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240b341a57c912647b221862bf14e5d1, type: 3}
+  m_Name: CartoonLaugh
+  m_EditorClassIdentifier: 
+  id: cl
+  dialogueTypingSoundClips:
+  - {fileID: 8300000, guid: e9c57e5ca50761d4f85a5a41c8fa4d94, type: 3}
+  - {fileID: 8300000, guid: 10ff4909a29138e46b8211897b88563b, type: 3}
+  - {fileID: 8300000, guid: 8dfd3bedacc6bc0429783474fff6a58d, type: 3}
+  - {fileID: 8300000, guid: 5d564a795877a404eb7bb30e2b057cb8, type: 3}
+  - {fileID: 8300000, guid: 9c343b2c55adb6b4fb7f59983d43ec3c, type: 3}
+  - {fileID: 8300000, guid: dd2fc4e1e51f23644ae1c5a2d3721a3b, type: 3}
+  - {fileID: 8300000, guid: 8b54514ba70244e40afea2544aed62c5, type: 3}
+  - {fileID: 8300000, guid: 87b523aad3e9ec043a318ee7c49333d1, type: 3}
+  - {fileID: 8300000, guid: 7285148269b590843af72c30d21258bf, type: 3}
+  - {fileID: 8300000, guid: 7505bd7095408c64bbecf59882534a8f, type: 3}
+  - {fileID: 8300000, guid: 98f1ba7db4e70744a8079c7fc360eb18, type: 3}
+  - {fileID: 8300000, guid: 5a3d53c89baf1924c83dccf0a656f89e, type: 3}
+  frequencyLevel: 15
+  maxPitch: 1.47
+  minPitch: 0.82
+  talkVolume: 0.227
+  stopAudioSource: 0

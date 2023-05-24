@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240b341a57c912647b221862bf14e5d1, type: 3}
+  m_Name: DemonLatin 1
+  m_EditorClassIdentifier: 
+  id: dl
+  dialogueTypingSoundClips:
+  - {fileID: 8300000, guid: 59fe227c662a3e0449da71a6cc3ec660, type: 3}
+  - {fileID: 8300000, guid: e022fe6bb09766b4ba22be0dfc0f4d8f, type: 3}
+  - {fileID: 8300000, guid: 9db377fcd01e1a04ab6ad57dede1a7c2, type: 3}
+  - {fileID: 8300000, guid: 65cfa242cd015c340b9b5ca9f1b0c5a4, type: 3}
+  - {fileID: 8300000, guid: 5de241c998c571a4dbf24b958a0af633, type: 3}
+  frequencyLevel: 10
+  maxPitch: 2.61
+  minPitch: 2.33
+  stopAudioSource: 0
