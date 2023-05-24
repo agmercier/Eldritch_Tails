@@ -49,6 +49,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(PlayerPrefs.GetString("name"));
         if (_instance != null)
         {
             Debug.LogWarning("More than one instance of Dialogue Manager");
