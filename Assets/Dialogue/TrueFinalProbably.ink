@@ -13,13 +13,13 @@ The water splashes up and leaves black stains on his skin and clothes as {NPC_Na
 
 ===wakesup===
 ~GetWood = "false"
-He wakes up with the sound still echoing in his ears and drenched in sweat. Bewildered, he sits up and sees his wife still peacefully asleep lying next to him. #background: inside 1 #left: NPC 
+He wakes up with the sound still echoing in his ears and drenched in sweat. Bewildered, he sits up and sees his wife still peacefully asleep lying next to him. #background: inside 2 #left: NPC 
 Another nightmare, then...
 He carefully gets off the bed and looks out the window, into the dark forest. It should be around sunrise, but because {NPC_Name} and his family live on the outskirts of the village, right next to the forest, it is always dark.
-???: Notice that rune over that glass of water? Click on it and see what happens. #runeX_0:-29 #runeY_0:-11
+???: Notice that rune over that glass of water? Click on it and see what happens. #background: inside 1 #runeX_0:-29 #runeY_0:-11
 + {not knockoverglass} [Knock over glass] ->knockoverglass
 + {knockoverglass} [Knock over glass] ->knockoverglass2
-+ [Do nothing] -> introfamily
++ [Do nothing] -> introfamilynonbroken
 
 ===knockoverglass===
 Suddenly, the glass of water standing on the bedside table shatters into thousands of tiny pieces, startling him. #background: inside blank #left: NPC 
@@ -35,8 +35,20 @@ When did that happen? Yesterday evening the glass had just been standing there a
 ->introfamily
 
 ===introfamily===
-Daughter: "Did you dream again, papa?" #background: inside 1 #left: NPC #right: daughter
-He nods in response as his daughter walks up towards him. #background: inside blank #left: NPC #right: daughter
+Daughter: "Did you dream again, papa?" #background: inside blank #left: NPC #right: daughter
+He nods in response as his daughter walks up towards him. #left: NPC #right: daughter
+{NPC_Name}: "I think it's a sign that perhaps we really should make the move to the bigger city. It will be good for us, and you can go to a real school!" 
+Daughter: "Hehe, it will be an adventure!" she replies excitedly and then grabs onto his hand. "But we're happy here in the village too, aren't we?" 
++ {wakesup == 1} [Go to the village] -> gotovillage1
++ {wakesup == 2} [Go to the village] -> gotovillage2
++ {wakesup == 3} [Go to the village] -> gotovillage3
++ {wakesup == 4} [Go to the village] -> gotovillage4
++ {wakesup == 5} [Go to the village] -> gotovillage5
++ {wakesup > 6} [Go to the village] -> gotovillage6
+
+===introfamilynonbroken===
+Daughter: "Did you dream again, papa?" #background: inside 2 #left: NPC #right: daughter
+He nods in response as his daughter walks up towards him. #left: NPC #right: daughter
 {NPC_Name}: "I think it's a sign that perhaps we really should make the move to the bigger city. It will be good for us, and you can go to a real school!" 
 Daughter: "Hehe, it will be an adventure!" she replies excitedly and then grabs onto his hand. "But we're happy here in the village too, aren't we?" 
 + {wakesup == 1} [Go to the village] -> gotovillage1
