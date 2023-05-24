@@ -3,7 +3,7 @@ VAR NPC_Name = "Geralt"
 VAR well = "off"
 VAR VeggieLush = 0
 VAR GetWood = "false"
-->coincidence1
+->start1
 
 ===start1===
 West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever cut and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:forest blank  #voice:dmm
