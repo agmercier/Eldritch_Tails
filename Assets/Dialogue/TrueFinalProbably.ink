@@ -3,7 +3,7 @@ VAR NPC_Name = "Geralt"
 VAR well = "off"
 VAR VeggieLush = 0
 VAR GetWood = "false"
-->gotovillage2
+->start1
 
 ===start1===
 West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever <color=\#FF0000>cut</color> and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:forest blank  #voice:dl
@@ -35,7 +35,7 @@ When did that happen? Yesterday evening the glass had just been standing there a
 ->introfamily
 
 ===introfamily===
-Daughter: "Did you dream again, papa?" #background: inside blank #left: NPC #right: daughter
+Daughter: "Did you dream again, papa?" #background: inside 1 #left: NPC #right: daughter
 He nods in response as his daughter walks up towards him. #background: inside blank #left: NPC #right: daughter
 {NPC_Name}: "I think it's a sign that perhaps we really should make the move to the bigger city. It will be good for us, and you can go to a real school!" 
 Daughter: "Hehe, it will be an adventure!" she replies excitedly and then grabs onto his hand. "But we're happy here in the village too, aren't we?" 
