@@ -337,7 +337,7 @@ Shivering {NPC_Name} decided to go deeper into the woods. If he's already cold, 
 = BarrierOption
 ...Make your choice #background: forest blank
 + [go back home]-> Home
-+ {barrier == "off" || barrier == "Off" || barrier == "of"|| barrier == ""|| barrier == "delete" || barrier == "Delete"} [GO. DEEPER. INTO. THE. WOODS.]-> GetHerbs
++ {barrier != "on"} [GO. DEEPER. INTO. THE. WOODS.]-> GetHerbs
 
 ===GetHerbs===
 ...Very well then. #background: forest blank #left: NPC 
@@ -394,7 +394,7 @@ Daughter: "I am afraid I am not well enough to travell, father." #background: ho
 Realizing that something was very wrong, not only with the town but also his own family. {NPC_Name} turned heel and ran into the forest. He was going to get out of here! No matter what. #background: house blank #left: NPC 
 + [Continue] -> ForestStay
 //barrier need to be down
-+ {barrier == "off" || barrier == "Off" || barrier == "of"|| barrier == ""|| barrier == "delete" || barrier == "Delete"} [Continue] -> ForestLeave
++ {barrier != "on"} [Continue] -> ForestLeave
 
 ===ForestStay===
 He ran on deeper and deeper into the forest. The trees grew more dense, blocking out more of the sunlight and it seemed to grow darker with every step. He still pushed on. Just about as he was to cross the treshold of the part of the forest that he knew, he realized that he was running, but he was not moving. Panicked he pushed even harder, even further, but no matter what he stayed in the same place. #background: dark forest blank #left: NPC

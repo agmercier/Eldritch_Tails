@@ -57,13 +57,25 @@ public class DialogueManager : MonoBehaviour
 
         currentAudioInfo = defaultAudioInfo;
 
+        string pathBarrier = Application.streamingAssetsPath + "/Barrier/" + "Barrier_Controler" + ".txt";
 
+        if (File.Exists(pathBarrier))
+        {
+            File.Delete(pathBarrier);
+        }
+        using (StreamWriter swB = File.CreateText(pathBarrier))
+            swB.WriteLine("on");
 
+        string pathWell = Application.streamingAssetsPath + "/Well/" + "well" + ".txt";
+        if (File.Exists(pathWell))
+        {
+            File.Delete(pathWell);
+        }
+        using (StreamWriter swW = File.CreateText(pathWell))
+            swW.WriteLine("off");
     }
-    
-    private void Start()
+        private void Start()
     {
-        //Debug.Log(File.Exists(Application.streamingAssetsPath + "/Barrier/" + "Barrier_Controler" + ".txt"));
         _currentStory = new Story(inkFile.text);
 
         NPC_name = PlayerPrefs.GetString("name");
