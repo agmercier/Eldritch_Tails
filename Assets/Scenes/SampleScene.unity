@@ -825,7 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fe0e6932340c84cbea955f616c9544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkFile: {fileID: 4900000, guid: 19125e8fa1292b044a6de22c0ecf4cc9, type: 3}
+  inkFile: {fileID: 4900000, guid: 14c501db575126a448bcecb02a7c2793, type: 3}
   gameScreen: {fileID: 1571753815}
   sprites:
   - {fileID: 21300000, guid: 88ef3ab2b7a7d14409e0e503bfb4aca7, type: 3}

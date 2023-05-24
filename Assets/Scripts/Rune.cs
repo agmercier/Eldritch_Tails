@@ -8,15 +8,16 @@ public class Rune : MonoBehaviour
     private void Start()
     {
         _image = GetComponent<Image>();
+        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0.0f);
     }
 
     public void ChangeWhenHover()
     {
-        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0.0f);
+        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0.5f);
     }
 
     public void ChangeWhenLeaves()
     {
-        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0.5f);
+        _image.color = new Color(_image.color.r, _image.color.g, _image.color.b, 0.0f);
     }
 }

@@ -52,10 +52,9 @@ public class GameScreen : MonoBehaviour
     private DialogueAudioInfoSO currentAudioInfo;
     private AudioSource audioSource;
 
-    private readonly string[] choiceExclude = { "Continue", "Do nothing", "Go to the village", "Nod", "Decline", "Go back to village", "Go back home", "Set out to get medicine", "GO HOME", "Fetch some water from the well", "Continue to well" };
-    private readonly string[] choiceExcludeNotTimer = { "Continue", "Do nothing", "Go to the village", "Nod", "Decline", "Go back to village", "Go back home", "Set out to get medicine", "GO HOME", "Fetch some water from the well", "Continue to well", "Western town", "Village in the mountains", "Capital", "Hmmm... strange", "Comment", "Continue when It is done", "GO. DEEPER. INTO. THE. WOODS.", "Realise" };
+    private readonly string[] choiceExclude = { "Continue", "Do nothing", "Go to the village", "Nod", "Decline", "Go back to village", "Go back home", "go back home", "Set out to get medicine", "GO HOME", "Fetch some water from the well", "Continue to well" };
+    private readonly string[] choiceExcludeNotTimer = { "Continue", "Do nothing", "Go to the village", "Nod", "Decline", "Go back to village", "Go back home", "go back home", "Set out to get medicine", "GO HOME", "Fetch some water from the well", "Continue to well", "Western town", "Village in the mountains", "Capital", "Hmmm... strange", "Comment", "Continue when It is done", "GO. DEEPER. INTO. THE. WOODS.", "Realise" };
 
-    private string NPC_name;
 
     private ScreenDetails _screen;
 
@@ -65,7 +64,6 @@ public class GameScreen : MonoBehaviour
 
         currentAudioInfo = defaultAudioInfo;
 
-        NPC_name = PlayerPrefs.GetString("name");
     }
 
     private void Update()
