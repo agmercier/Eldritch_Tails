@@ -3,7 +3,7 @@ VAR NPC_Name = "Geralt"
 VAR well = "off"
 VAR VeggieLush = 0
 VAR GetWood = "false"
-->start1
+->coincidence1
 
 ===start1===
 West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever cut and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:forest blank  #voice:dmm
@@ -261,6 +261,10 @@ He knocks again.
 Leader: "Good day! What can I help you with today?" #background: leader house blank #left: NPC #right: leader #voice:cursed
 Again? Word for word, it is the same greeting as before. Such a thing is unnatural, right? #voice:dmm
 Without saying anything more, {NPC_Name} walks off. 
++ [Continue] -> VillageHub
+
+===VillageHub===
+{NPC_Name} still has some tasks to take care off #background: village 1 #voice:dmm #runeX_0:-338 #runeY_0:11
 + {not look1} [Take a look at flooded creek] ->look1
 + {not getwood1} {GetWood == "true"} [Get wood] ->getwood1
 + [Go back home] ->supplies1
