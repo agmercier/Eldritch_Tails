@@ -3,7 +3,7 @@ VAR NPC_Name = "Geralt"
 VAR well = "off"
 VAR VeggieLush = 0
 VAR GetWood = "false"
-->start1
+->gotovillage2
 
 ===start1===
 West of the city the hills rise wild, and there are valleys with deep woods that no axe has ever <color=\#FF0000>cut</color> and no sunlight reaches through. Thin brooks run through it in the darkness, the water blackened with mud. #background:forest blank  #voice:dl
@@ -16,7 +16,7 @@ The water splashes up and leaves black stains on his skin and clothes as {NPC_Na
 He wakes up with the sound still echoing in his ears and drenched in sweat. Bewildered, he sits up and sees his wife still peacefully asleep lying next to him. #background: inside 1 #left: NPC 
 Another nightmare, then...
 He carefully gets off the bed and looks out the window, into the dark forest. It should be around sunrise, but because {NPC_Name} and his family live on the outskirts of the village, right next to the forest, it is always dark.
-???: Notice that rune over that glass of water? Click on it and see what happens. #runeX_0:-40 #runeY_0:-20
+???: Notice that rune over that glass of water? Click on it and see what happens. #runeX_0:-29 #runeY_0:-11
 + {not knockoverglass} [Knock over glass] ->knockoverglass
 + {knockoverglass} [Knock over glass] ->knockoverglass2
 + [Do nothing] -> introfamily
@@ -48,37 +48,37 @@ Daughter: "Hehe, it will be an adventure!" she replies excitedly and then grabs 
 
 ===gotovillage1===
 Later that day, he makes his way to the other side of the village, where the vegetable field is located. He's out of food, but it seems the village crops are not in abundance this year. There are only a few carrots, pale and weirdly shaped, and lettuce, half eaten by maggots and other vermin, on display at the food stall. #background: veggie field 1.1 #left: NPC
-He sighs and gets the things he needs. 
+He sighs and gets the things he needs. #runeX_1:0 #runeY_1:-347
 + [Do nothing] -> requestforwood
 + {coincidence1 > 2} [Influence field] ->veggie1
 
 ===gotovillage2===
 Later that day, he makes his way to the other side of the village, where the vegetable field is located. He's out of food, but it seems the village crops are not in abundance this year. There are only a few carrots, pale and weirdly shaped, and lettuce, half eaten by maggots and other vermin, on display at the food stall. #background: veggie field 1.2 #left: NPC
-He sighs and gets the things he needs. 
+He sighs and gets the things he needs. #runeX_1:0 #runeY_1:-347
 + [Do nothing] -> requestforwood
 + {coincidence1 > 2} [Influence field] ->veggie1
 
 ===gotovillage3===
 Later that day, he makes his way to the other side of the village, where the vegetable field is located. He's out of food, but it seems the village crops are not in abundance this year. There are only a few carrots, pale and weirdly shaped, and lettuce, half eaten by maggots and other vermin, on display at the food stall. #background: veggie field 1.3 #left: NPC
-He sighs and gets the things he needs. 
+He sighs and gets the things he needs. #runeX_1:0 #runeY_1:-347
 + [Do nothing] -> requestforwood
 + {coincidence1 > 2} [Influence field] ->veggie1
 
 ===gotovillage4===
 Later that day, he makes his way to the other side of the village, where the vegetable field is located. He's out of food, but it seems the village crops are not in abundance this year. There are only a few carrots, pale and weirdly shaped, and lettuce, half eaten by maggots and other vermin, on display at the food stall. #background: veggie field 1.4 #left: NPC
-He sighs and gets the things he needs. 
+He sighs and gets the things he needs. #runeX_1:0 #runeY_1:-347
 + [Do nothing] -> requestforwood
 + {coincidence1 > 2} [Influence field] ->veggie2
 
 ===gotovillage5===
 Later that day, he makes his way to the other side of the village, where the vegetable field is located. He's out of food, but it seems the village crops are not in abundance this year. There are only a few carrots, pale and weirdly shaped, and lettuce, half eaten by maggots and other vermin, on display at the food stall. #background: veggie field 1.5 #left: NPC
-He sighs and gets the things he needs. 
+He sighs and gets the things he needs. #runeX_1:0 #runeY_1:-347
 + [Do nothing] -> requestforwood
 + {coincidence1 > 2} [Influence field] ->veggie3
 
 ===gotovillage6===
 Later that day, he makes his way to the other side of the village, where the vegetable field is located. He's out of food, but it seems the village crops are not in abundance this year. There are only a few carrots, pale and weirdly shaped, and lettuce, half eaten by maggots and other vermin, on display at the food stall. #background: veggie field 1.6 #left: NPC
-He sighs and gets the things he needs. 
+He sighs and gets the things he needs. #runeX_1:0 #runeY_1:-347
 + [Do nothing] -> requestforwood
 + {coincidence1 > 2} [Influence field] ->veggie4
 
@@ -194,7 +194,7 @@ Then, two of the village hunters enter the village, a bewildered look on both th
 Hunter1: "The western creek is flooded!" 
 {NPC_Name}: "What? That little thing?" 
 There was barely any water running through it on most days, so this is unexpected. 
-Hunter2: "Yeah, we tried crossing it, but it's just no good!" #runeX_0:-100 #runeY_0:0 #runeX_1:0 #runeY_1:0 #runeX_2:350 #runeY_2:350
+Hunter2: "Yeah, we tried crossing it, but it's just no good!" #runeX_1:-338 #runeY_1:11 #runeX_2:280 #runeY_2:258
 + [Go back home] ->supplies1
 + [Take a look at flooded creek] ->look1
 + {GetWood == "true"} [Get wood] ->getwood1
@@ -301,12 +301,12 @@ This wasn't right! He cannot just lets his kid wither away! Determined he square
 
 
 ===GetMedicine===
-His experience with the woods and their layout was what gave {NPC_Name} hope. He knew he had seen a clustering of white willow trees, somewhere, at some point... Their bark could be used to brew a tea to reduce fever. Searching ferferently he combed the woods, but to no avail. Having combed the part of the woods he frequented there were only two options left. Either go deeper, into uncharted territory. Or return home, his wife would have called the doctor by now. Maybe he could provide some insight. #background: forest 1 #left: NPC 
+His experience with the woods and their layout was what gave {NPC_Name} hope. He knew he had seen a clustering of white willow trees, somewhere, at some point... Their bark could be used to brew a tea to reduce fever. Searching ferferently he combed the woods, but to no avail. Having combed the part of the woods he frequented there were only two options left. Either go deeper, into uncharted territory. Or return home, his wife would have called the doctor by now. Maybe he could provide some insight. #background: forest 1 #runeX_1:-274 #runeY_1:-224 #left: NPC
 + [Go back home]-> Home
 + [Go deeper, his daughter needs that medicine!]-> GoDeeper1
 
 = GoDeeper1
-Shivering {NPC_Name} decided to go deeper into the woods. If he's already cold, than how vulnerable will his daughter be if the weather turns? Confident het takes a couple steps. But... what if he got lost, what if he encountered a wild animal? He hard heard tales of them roaming this space. Maybe it would be best not to chance it. Rely on the expertise of the doctor. #background: forest 2 #left: NPC
+Shivering {NPC_Name} decided to go deeper into the woods. If he's already cold, than how vulnerable will his daughter be if the weather turns? Confident het takes a couple steps. But... what if he got lost, what if he encountered a wild animal? He hard heard tales of them roaming this space. Maybe it would be best not to chance it. Rely on the expertise of the doctor. #background: forest 2 #runeX_1:534 #runeY_1:-105 #left: NPC
 + [GO HOME]-> Home
 + [Go Deeper anyway, the forest has never really been that dangerous]-> GoDeeper2
 

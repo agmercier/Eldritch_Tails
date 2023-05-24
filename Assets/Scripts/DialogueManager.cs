@@ -91,7 +91,6 @@ public class DialogueManager : MonoBehaviour
 
         DialogueAudioInfoSO voiceAudioInfo = currentAudioInfo;
 
-        Debug.Log($"Runes: {runes.Length}");
         foreach (var splitTag in _currentStory.currentTags.Select(inkTag => inkTag.Split(":")))
         {
             switch (splitTag[0])
@@ -113,9 +112,11 @@ public class DialogueManager : MonoBehaviour
                     currentAudioInfo = voiceAudioInfo;
                     break;
                 case { } s when s.StartsWith(RuneX):
+                    if (Parse(s.Split("_")[1]) >= runes.Length) break;
                     runes[Parse(s.Split("_")[1])].XOffset = Parse(splitTag[1].Trim());
                     break;
                 case { } s when s.StartsWith(RuneY):
+                    if (Parse(s.Split("_")[1]) >= runes.Length) break;
                     runes[Parse(s.Split("_")[1])].YOffset = Parse(splitTag[1].Trim());
                     break;
             }
